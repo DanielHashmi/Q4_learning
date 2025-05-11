@@ -17,7 +17,7 @@ The repository is organized as follows:
 - Apply Python skills to solve real-world problems.
 - Successfully complete all assignments for Quarter 4.
 
-## Special thanks to my teachers for providing assignments and guidance 💖.
+#### Special thanks to my teachers for providing assignments and guidance 💖.
 
 ### Great Teachers Behind Me:
 - Sir Zia
