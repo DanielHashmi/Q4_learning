@@ -1,0 +1,17 @@
+[project]
+name = "uv-task"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Daniel Hashmi", email = "danialhashmi418@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+uv-task = "uv_task:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
