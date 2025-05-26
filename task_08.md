@@ -10,4 +10,4 @@ Instead, it looks at the words you give it and guesses what the next words shoul
 
 The more text it reads during training, the better it gets.
 
-People use LLMs for chatting, writing stories or emails, translating languages, summarizing things, coding help, and more all by just typing in plain language.
+People use LLMs for chatting, writing stories or emails, translating languages, summarizing things, coding help, and more all by just typing in plain language. 
