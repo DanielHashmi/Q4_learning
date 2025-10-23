@@ -2,10 +2,10 @@
 
 This repository serves as the comprehensive workspace for Quarter 4 academic endeavors, encompassing assignments, technical documentation, experimental implementations, and applied projects. The primary focus areas include:
 
-* 🎨 Advanced prompt engineering and context optimization
-* 📋 Specification-driven development methodologies
-* 🔌 Model Context Protocol (MCP) implementation
-* 🤖 Agentic AI systems and architectures
+* 🎨 Advanced prompt and context engineering
+* 📋 Specification-driven development
+* 🔌 Model Context Protocol (MCP)
+* 🤖 Agentic AI
 
 Primary Development Language: 🐍 Python
 
