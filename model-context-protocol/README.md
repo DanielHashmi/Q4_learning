@@ -44,7 +44,7 @@ You get AI that understands your specific work and context, not just general kno
 You save enormous amounts of time because you don't need to build custom connections to every single data source from scratch. There's a growing library of ready-to-use MCP servers you can add to your app right away.
 
 ---
-
+ 
 ## 🧱 The Three Core Building Blocks
 
 MCP servers can share three types of things with AI applications:
