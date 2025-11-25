@@ -1,5 +1,9 @@
 # How to Use Claude Code with Gemini models for Free on Windows
 
+<p align="center">
+  <img src="https://iili.io/fqRL25b.md.png" alt="claude-and-gemini" width="100%">
+</p>
+
 **Note:** This guide is specifically for **Windows PowerShell.**
 
 ### **Prerequisite: Check Node.js**
