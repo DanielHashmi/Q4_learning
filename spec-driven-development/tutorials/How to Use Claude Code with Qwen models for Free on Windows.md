@@ -8,7 +8,11 @@
 
 ---
 
-### Step 1: Install Claude Code Router
+### Step 1: Install Claude Code Router and Qwen Code
+
+```powershell
+npm install -g @qwen-code/qwen-code@latest
+```
 
 ```powershell
 npm install -g @anthropic-ai/claude-code @musistudio/claude-code-router
