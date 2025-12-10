@@ -116,14 +116,48 @@ Test with:
 
 ---
 
-## Token Refresh (When you get 401 errors)
+## Token Refresh (Fixing 401 Errors)
 
-Your OAuth token expires. Refresh it by:
-1. Re-authenticating your QWEN CODE CLI: If already logged in and the access_token matches in both `config.json` and `oauth_creds.json`, delete the oauth_creds.json file and run `qwen` to initiate re-authentication.
-2. Update the `api_key` in your config.json with the new access_token:
-   ```powershell
-   notepad "$env:USERPROFILE\.claude-code-router\config.json"
-   ```
-3. Restart: `ccr restart`
+If you are already logged in but still getting 401 and the `access_token` in both `config.json` and `oauth_creds.json` match, then the token is expired. Reset it properly.
+
+#### **Step 1: Delete the old OAuth file**
+
+```powershell
+Remove-Item "$env:USERPROFILE\.qwen\oauth_creds.json"
+```
+
+#### **Step 2: Run Qwen CLI to trigger re-login**
+
+```powershell
+qwen
+```
+
+#### **Step 3: Copy the new access_token**
+
+```powershell
+Get-Content "$env:USERPROFILE\.qwen\oauth_creds.json" -Raw
+```
+
+---
+
+### **1. Update config.json with the new access_token**
+
+Open the config file:
+
+```powershell
+notepad "$env:USERPROFILE\.claude-code-router\config.json"
+```
+
+Replace the old `api_key` with your new `access_token` and save.
+
+---
+
+### **2. Restart Claude Code Router**
+
+```powershell
+ccr restart
+```
+
+---
 
 If using WSL: [wsl setup](https://github.com/DanielHashmi/Q4_learning/blob/main/spec-driven-development/tutorials/How%20to%20Use%20Claude%20Code%20with%20Qwen%20models%20for%20Free%20on%20Linux%20and%20macOS%20(sh%20and%20bash).md)
