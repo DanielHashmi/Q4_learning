@@ -3,53 +3,27 @@
 ![claude-code-with-qwen.png](claude-code-with-qwen.png)
 
 ## Prerequisites
-- Qwen CLI installed and authenticated
-- Node.js v18+ installed
+*   **Node.js (v18+):** Ensure Node.js is installed.
+*   **Qwen CLI:** Installed and authenticated.
 
 ---
 
-### Step 1: Install Claude Code Router
+### 1. Install Required Packages
+Open PowerShell and run the following command to install the Qwen Code, Claude Code, and the Claude Code Router:
 
 ```powershell
-npm install -g @anthropic-ai/claude-code @musistudio/claude-code-router
+npm install -g @qwen-code/qwen-code@latest @anthropic-ai/claude-code @musistudio/claude-code-router
 ```
 
-### Step 2: Extract Your Access Token
+### 2. Configure the Router
+Run the command below to create the necessary directories and generate the configuration file.
 
-Replace `PC_USER` with your Windows username.
-
-Open `C:\Users\PC_USER\.qwen\oauth_creds.json`:
-
-It should look something like this:
-
-```json
-{
-  "access_token": "YOUR_QWEN_ACCESS_TOKEN_HERE",
-  "token_type": "Bearer",
-  "refresh_token": "YOUR_QWEN_REFRESH_TOKEN_HERE",
-  "resource_url": "portal.qwen.ai",
-  "expiry_date": 1764876220290
-}
-```
-
-Copy the `access_token` value.
-
----
-
-### Step 3: Create the Folders
-
-Paste this into PowerShell:
-
+Create directories
 ```powershell
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude-code-router", "$env:USERPROFILE\.claude"
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude-code-router", "$env:USERPROFILE\.claude" | Out-Null
 ```
 
----
-
-### Step 4: Create the Config File
-
-Paste this command to create and populate the config file:
-
+Write the configuration file
 ```powershell
 @"
 {  
@@ -82,43 +56,65 @@ Paste this command to create and populate the config file:
 "@ | Out-File -FilePath "$env:USERPROFILE\.claude-code-router\config.json" -Encoding UTF8
 ```
 
-To open the config file, use the following command:
+### 3. Add Your Access Token
+You must retrieve your Qwen access token and add it to the configuration file created above.
+
+**A. Retrieve the Token**
+Run this command to display your current Qwen credentials:
+```powershell
+Get-Content "$env:USERPROFILE\.qwen\oauth_creds.json"
+```
+*Copy the value inside the `access_token` field (excluding quotes).*
+
+**B. Update the Config File**
+Open the configuration file in Notepad:
 ```powershell
 notepad "$env:USERPROFILE\.claude-code-router\config.json"
 ```
-Replace `YOUR_QWEN_ACCESS_TOKEN_HERE` with your actual access token from Step 2:
+1.  Locate `"api_key": "YOUR_QWEN_ACCESS_TOKEN_HERE"`.
+2.  Replace `YOUR_QWEN_ACCESS_TOKEN_HERE` with the token you copied.
+3.  Save and close the file.
 
----
-
-### Step 5: Start Using
-
-Restart the router server:
+### 4. Run Claude Code
+Start the router and launch the application.
 
 ```powershell
 ccr restart
-```
-
-Run Claude Code with Qwen models:
-
-```powershell
 ccr code
 ```
 
-Test with:
-
-```
-> hi
-```
+You can now test the connection by typing `> hi`.
 
 ---
 
-## Token Refresh (When you get 401 errors)
+## Troubleshooting: Token Expiry (401 Errors)
+If you receive a 401 Unauthorized error, your Qwen token has likely expired. Follow these steps to refresh it.
 
-Your OAuth token expires. Refresh it by:
+**1. Reset Credentials**
+Delete the old credentials file and re-authenticate via the Qwen CLI:
+```powershell
+Remove-Item "$env:USERPROFILE\.qwen\oauth_creds.json"
+qwen
+```
 
-1. Re-authenticate your QWEN CODE CLI
-2. Update the `api_key` in your config.json:
-   ```powershell
-   notepad "$env:USERPROFILE\.claude-code-router\config.json"
-   ```
-3. Restart: `ccr restart`
+**2. Retrieve New Token**
+Display the new token:
+```powershell
+Get-Content "$env:USERPROFILE\.qwen\oauth_creds.json"
+```
+
+**3. Update Configuration**
+Open the config file and paste the new token into the `api_key` field:
+```powershell
+notepad "$env:USERPROFILE\.claude-code-router\config.json"
+```
+
+**4. Restart Router**
+Apply the changes:
+```powershell
+ccr restart
+ccr code
+```
+
+---
+*For WSL setups, refer to the [Linux/macOS guide](https://github.com/DanielHashmi/Q4_learning/blob/main/spec-driven-development/tutorials/How%20to%20Use%20Claude%20Code%20with%20Qwen%20models%20for%20Free%20on%20Linux%20and%20macOS%20(sh%20and%20bash).md).*

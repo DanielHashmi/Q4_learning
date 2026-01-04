@@ -15,7 +15,7 @@ Primary Development Language: 🐍 Python
 * Sir Ameen Alam
 * Sir Junaid
 * Sir Qasim
-* Sir Hamza Syed
+* Sir Hamzah Syed
 * Sir Fahad Khan
 * Sir Ali Jawwad
 * Sir Aneeq Khatri

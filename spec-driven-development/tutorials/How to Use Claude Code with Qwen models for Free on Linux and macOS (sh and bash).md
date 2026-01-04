@@ -103,7 +103,11 @@ Test with:
 ## Token Refresh (When you get 401 errors)
 
 Your OAuth token expires. Refresh it by:
-
-1. Re-authenticate your QWEN CODE CLI
-2. Update the `api_key` in your config.json
+1. Re-authenticating your QWEN CODE CLI: If already logged in and the access_token matches in both `config.json` and `oauth_creds.json`, delete the oauth_creds.json file and run `qwen` to initiate re-authentication.
+2. Update the `api_key` in your config.json with the new access_token:
+   ```powershell
+   notepad "$env:USERPROFILE\.claude-code-router\config.json"
+   ```
 3. Restart: `ccr restart`
+
+If using PowerShell: [powershell setup](https://github.com/DanielHashmi/Q4_learning/blob/main/spec-driven-development/tutorials/How%20to%20Use%20Claude%20Code%20with%20Qwen%20models%20for%20Free%20on%20Windows.md)
