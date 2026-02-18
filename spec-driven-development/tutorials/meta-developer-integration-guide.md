@@ -398,26 +398,7 @@ Important:
 
 ---
 
-## 10. Test Inside This Project (After `.env` Is Filled)
-
-1. Start dashboard and orchestrator.
-2. Check runtime social account status:
-   - `GET /api/social/accounts`
-3. Run built-in validator:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\verify-meta-graph.ps1
-```
-
-4. Then do one live action each in dashboard Social page:
-   - Facebook post
-   - Instagram post
-   - WhatsApp send
-5. Approve requests through HITL flow.
-
----
-
-## 11. Troubleshooting (Common Real Failures)
+## 10. Troubleshooting (Common Real Failures)
 
 1. Facebook post fails with permissions error:
    - Regenerate token with page permissions.
