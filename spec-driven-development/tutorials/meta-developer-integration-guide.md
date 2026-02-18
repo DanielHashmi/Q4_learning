@@ -275,7 +275,7 @@ INSTAGRAM_ACCESS_TOKEN=
 
 ---
 
-## 7. WhatsApp Cloud API Setup
+## 7. WhatsApp Cloud API Setup (Requires Business Verification)
 
 ### 7.1 Get Values from Meta App -> WhatsApp -> API Setup
 
