@@ -6,8 +6,9 @@ This repository serves as the comprehensive workspace for Quarter 4 academic end
 * 📋 Specification-driven development
 * 🔌 Model Context Protocol (MCP)
 * 🤖 Agentic AI
+* ☁️ Cloud-native development
 
-Primary Development Language: 🐍 Python
+Primary Development Language: 🐍 Python, 💠 Typescript, 📑 Markdown
 
 👨‍🏫 My Quarter 4 Teachers:
 
