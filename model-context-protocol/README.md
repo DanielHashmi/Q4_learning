@@ -1,5 +1,7 @@
 # 🔌 Model Context Protocol (MCP)
 
+![MCP Image](main.png)
+
 This repository contains a comprehensive 3-week learning curriculum for **Model Context Protocol (MCP)**, a universal standard for connecting AI applications with custom data and tools.
 
 ---
