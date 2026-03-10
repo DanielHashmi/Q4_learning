@@ -46,10 +46,11 @@ This progresses from foundational concepts to production-ready implementations:
 **Implementation Examples:**
 - [basic_mcp_and_agent/](mcp-class-content/week3/basic_mcp_and_agent/) - Basic MCP server with agent integration
 - [production_mcp_and_agent/](mcp-class-content/week3/production_mcp_and_agent/) - Production-ready implementations
-  - `server_stdio.py` - Stdio transport implementation
-  - `server_streamable_http.py` - HTTP streamable transport
-  - `client_stdio.py` - Stdio client example
-  - `client_streamable_http.py` - HTTP streamable client example
+  - [server_stdio.py](mcp-class-content/week3/production_mcp_and_agent/server_stdio.py) - Stdio transport implementation
+  - [server_streamable_http.py](mcp-class-content/week3/production_mcp_and_agent/server_streamable_http.py) - HTTP streamable transport
+  - [client_stdio.py](mcp-class-content/week3/production_mcp_and_agent/client_stdio.py) - Stdio client example
+  - [client_streamable_http.py](mcp-class-content/week3/production_mcp_and_agent/client_streamable_http.py) - HTTP streamable client example
+  - [sampling_elicitation_and_roots.py](mcp-class-content/week3/production_mcp_and_agent/sampling_elicitation_and_roots.py) - Advanced patterns: LLM sampling, human elicitation, and filesystem roots
 
 ---
 
