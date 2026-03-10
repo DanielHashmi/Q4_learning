@@ -26,7 +26,7 @@ New-Item mcp_server.py
 ## Basic MCP Server Example
 
 ```python
-from fastmcp import FastMCP
+from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP("Basic MCP Server")
 

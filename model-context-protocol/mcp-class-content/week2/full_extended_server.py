@@ -26,7 +26,7 @@ def get_weather(city: str) -> str:
 def get_city_catalog() -> str:
     """A catalog of all cities supported by this weather server."""
     return """
-Supported Cities — Weather Assistant Server
+Supported Cities,  Weather Assistant Server
 ============================================
 City        | Time Zone         | Country
 ------------|-------------------|----------

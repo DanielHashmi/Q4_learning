@@ -1,38 +1,33 @@
-# Stdio and Streamable #7
+# Stdio and Streamable HTTP #7
 
 ## Stdio
 
-Client launches the server as a subprocess and they talk through terminal input/output streams. No ports, no URLs, no network — just two processes connected by pipes. Fully bidirectional, meaning both sides can initiate messages. Every MCP feature works without any configuration. The only hard limit is that both client and server must be on the same machine
+Client launches the server as a subprocess and they talk through terminal input/output streams. No ports, no URLs, no network, just two processes connected by pipes. Fully bidirectional, meaning both sides can initiate messages. Every MCP feature works without any configuration. The only hard limit is that both client and server must be on the same machine.
 
 Don't use Streamable HTTP when:
+Your use case is purely local. STDIO is simpler, requires no network configuration, and is the standard for local development.
 
-You're still learning MCP — the extra setup adds friction
-Your use case is purely local — STDIO is simpler and more capable
-You hit Node version issues — don't fight tooling while learning concepts
+## Streamable HTTP
 
-## Streamable
-
-Streamable HTTP is the production-grade, remote-capable MCP transport, it unlocks cloud hosting and multiple clients, client and server communicate over HTTP using Server-Sent Events (SSE) to solve HTTP's one-way limitation, The client POSTs a request, the server keeps the connection open as a live stream and pushes multiple messages back through it. Enables remote hosting and multiple clients, but requires mcp-remote as a bridge for clients like Claude Desktop, depends on Node.js (v20.18.1+), and silently breaks major features if you set stateless_http=True or json_response=True
+Streamable HTTP is the current production-grade, remote-capable MCP transport. It unlocks cloud hosting and multiple clients, it uses a single endpoint with standard POST and GET requests. To keep track of the conversation, it strictly requires an `Mcp-Session-Id` and an `MCP-Protocol-Version` header.
 
 Use Streamable HTTP when:
-
-Your server needs to be hosted on a cloud/remote machine
-Multiple clients need to connect to the same server simultaneously
-You're building a public MCP API for others to use
-You're deploying to production
+Your server needs to be hosted on a cloud/remote machine.
+Multiple clients need to connect to the same server simultaneously.
+You're deploying to production.
 
 ## Exercise
 
-1. Streamable HTTP is more powerful for production, but strictly inferior to STDIO for local use, more setup, more dependencies, more ways to break
+1. Streamable HTTP is more powerful for production, but strictly inferior to STDIO for local use because it requires more setup and session management
 
-2. Hard limit: same machine only, the moment you need remote or cloud hosting, STDIO cannot help you
+2. Hard limit: STDIO is same-machine only. The moment you need remote or cloud hosting, STDIO cannot help you
 
-3. HTTP was designed for one-way request-response. The server doesn't know the client's URL, so pushing messages back was not easy, but SSE is a solution which makes it easy
+3. The old HTTP + SSE transport is now DEPRECATED. Always use Streamable HTTP with session IDs for modern remote servers
 
-4. Streamable best for: Remote hosting, cloud deployments, public APIs, multiple simultaneous clients
+4. Streamable HTTP best for: Remote hosting, production deployments, and public APIs
 
-5. Stdio best for: Local development, CLI tools, desktop apps, learning MCP
+5. Stdio best for: Local development, CLI tools, and learning MCP
 
-6. Transports are the delivery system for MCP messages, they determine how messages physically travel between client and server. Think of messages as letters and transports as the postal service
+6. Transports are the delivery system for MCP messages. They determine how messages physically travel between client and server. Think of messages as letters and transports as the postal service
 
 Good Luck 👋🏻

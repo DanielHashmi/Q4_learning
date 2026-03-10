@@ -6,7 +6,7 @@ So! Resources are MCP's way of letting a server share data with a client, things
 
 ## Prompts:
 
-Are reusable prompt templates servers expose to clients. They accept arguments to customize output and are user-controlled — the user explicitly selects and triggers them. Slash commands are the classic UI example, but the protocol doesn't mandate any specific interaction pattern
+Are reusable prompt templates servers expose to clients. They accept arguments to customize output and are user-controlled,  the user explicitly selects and triggers them. Slash commands are the classic UI example, but the protocol doesn't mandate any specific interaction pattern
 
 
 ## Exercise

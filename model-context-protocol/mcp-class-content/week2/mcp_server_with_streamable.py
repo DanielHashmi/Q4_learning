@@ -27,8 +27,8 @@ mcp_app = mcp.streamable_http_app()
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(mcp_app, host="0.0.0.0", port=8000)
-    
-    
+
+
 # Testing with inspector needs:
 # Transport Type: Streamable HTTP
 # URL: http://localhost:8000/mcp

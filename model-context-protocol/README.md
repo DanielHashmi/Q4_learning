@@ -1,64 +1,83 @@
-# 🔌 What is MCP?
+# 🔌 Model Context Protocol (MCP)
 
-**MCP (Model Context Protocol)** is a universal connector that helps AI applications access your data and tools.
-
-Here's the situation: your AI assistant is intelligent, but it can't see your files, reach your databases, or interact with your apps—unless you create a bridge. That's exactly what MCP does. It's a single standard way to connect AI with all the different systems and information you use daily.
+This repository contains a comprehensive 3-week learning curriculum for **Model Context Protocol (MCP)**, a universal standard for connecting AI applications with custom data and tools.
 
 ---
 
+## 📚 Curriculum Overview
 
-## ⚙️ How It Works
+This progresses from foundational concepts to production-ready implementations:
 
-MCP brings together three simple parts:
+### **Week 1: Foundations** 
+*Learn the core concepts and architecture of MCP*
 
-- 🤖 **Your AI application** (like Claude or ChatGPT) - this is what you talk to
-- 🖥️ **MCP servers** - these are small programs that link to your data sources (like Google Drive, GitHub, or files on your computer)
-- 🔗 **MCP clients** - these sit inside your AI application and manage the connections
+- [basic-mcp-server.md](mcp-class-content/week1/basic-mcp-server.md) - Introduction to basic MCP servers
+- [json-rpc.md](mcp-class-content/week1/json-rpc.md) - JSON-RPC protocol fundamentals
+- [http-and-rest.md](mcp-class-content/week1/http-and-rest.md) - HTTP/REST concepts
+- [mcp-host-client-server.md](mcp-class-content/week1/mcp-host-client-server.md) - MCP architecture overview
+- [mcp_server.py](mcp-class-content/week1/mcp_server.py) - Basic server implementation example
 
-Once you set this up, your AI can read your documents, search your databases, and use your tools—all through these standard connections.
+### **Week 2: Extending MCP Servers**
+*Build servers with Resources, Prompts, and Streamable protocols*
+
+- [resources-and-prompts.md](mcp-class-content/week2/resources-and-prompts.md) - Core MCP concepts: Resources and Prompts
+- [extend-mcp-server.md](mcp-class-content/week2/extend-mcp-server.md) - How to extend basic servers
+- [stdio-and-streamable.md](mcp-class-content/week2/stdio-and-streamable.md) - Transport protocols
+- [extend_mcp_server_with_resource.py](mcp-class-content/week2/extend_mcp_server_with_resource.py) - Adding resources to servers
+- [extend_mcp_server_with_prompt.py](mcp-class-content/week2/extend_mcp_server_with_prompt.py) - Adding prompts to servers
+- [full_extended_server.py](mcp-class-content/week2/full_extended_server.py) - Complete extended server example
+- [mcp_server_with_streamable.py](mcp-class-content/week2/mcp_server_with_streamable.py) - Streamable protocol implementation
+
+### **Week 3: Production & Advanced Topics**
+*Master advanced features and deploy production-ready servers*
+
+**Core Topics:**
+- [error-handling-and-logging.md](mcp-class-content/week3/error-handling-and-logging.md) - Error handling strategies
+- [logging-notifications.md](mcp-class-content/week3/logging-notifications.md) - Logging and server notifications
+- [context-object-and-lifespan.md](mcp-class-content/week3/context-object-and-lifespan.md) - Server lifecycle management
+- [stateful-and-stateless.md](mcp-class-content/week3/stateful-and-stateless.md) - Server state management
+- [security-and-oauth.md](mcp-class-content/week3/security-and-oauth.md) - Security best practices and OAuth
+- [http-vs-https.md](mcp-class-content/week3/http-vs-https.md) - HTTP vs HTTPS considerations
+- [roots-and-file-permissions.md](mcp-class-content/week3/roots-and-file-permissions.md) - File system access and permissions
+- [sampling-and-elicitation.md](mcp-class-content/week3/sampling-and-elicitation.md) - Advanced MCP patterns
+
+**Implementation Examples:**
+- [basic_mcp_and_agent/](mcp-class-content/week3/basic_mcp_and_agent/) - Basic MCP server with agent integration
+- [production_mcp_and_agent/](mcp-class-content/week3/production_mcp_and_agent/) - Production-ready implementations
+  - `server_stdio.py` - Stdio transport implementation
+  - `server_streamable_http.py` - HTTP streamable transport
+  - `client_stdio.py` - Stdio client example
+  - `client_streamable_http.py` - HTTP streamable client example
 
 ---
 
-## 🖼️ An Example Flow
-![MCP FLOW](MCP_FLOW.png)
+## 🎯 What is MCP?
 
-## ✨ What You Can Do
-
-Here are real examples of what becomes possible:
-
-- 📅 Your AI assistant can check your **Google Calendar and Notion** to help you stay organized
-- 💻 AI coding tools can look at your **Figma designs** and build actual working websites
-- 💼 Business chatbots can pull information from **multiple company databases** to answer questions
-- 🎨 AI can even control creative tools like **Blender** to make 3D designs
+MCP is a universal standard that allows:
+- 🤖 **AI applications** to access external data and tools
+- 🖥️ **MCP servers** to expose Resources, Prompts, and Tools
+- 🔗 **MCP clients** to manage connections between applications and servers
 
 ---
 
-## 🎯 Why This Matters
+## 🧱 Core Concepts
 
-### 👤 If you use AI applications:
-
-You get AI that understands your specific work and context, not just general knowledge. Your AI assistant can finally access your real documents and data to give you truly personalized help.
-
-### 👨‍💻 If you build AI applications:
-
-You save enormous amounts of time because you don't need to build custom connections to every single data source from scratch. There's a growing library of ready-to-use MCP servers you can add to your app right away.
-
----
- 
-## 🧱 The Three Core Building Blocks
-
-MCP servers can share three types of things with AI applications:
+MCP servers provide three primary building blocks:
 
 | Building Block | Description |
 |----------------|-------------|
-| 📦 **Resources** | Your data and information (like file contents, database records, or API responses) |
-| 💬 **Prompts** | Pre-made templates that help guide conversations with AI |
-| 🔧 **Tools** | Actions the AI can take (like searching, creating files, or calling APIs) |
+| 📦 **Resources** | Data and information (files, database records, API responses) |
+| 💬 **Prompts** | Pre-built templates to guide AI conversations |
+| 🔧 **Tools** | Actions the AI can invoke (search, create, call APIs) |
 
 ---
 
-## 🚀 Getting Started
+## 🚀 How to Use This Repository
 
-The beauty of MCP is that it's **open source** and growing rapidly. There are already **thousands of pre-built servers** you can use, and if you need something custom, building your own server is straightforward.
+1. **Start with Week 1** if you're new to MCP - understand the fundamentals
+2. **Progress to Week 2** to build your first extended servers
+3. **Complete Week 3** to master production patterns and deployment
+4. Each markdown file explains concepts; Python files provide working examples
+5. Refer to the `README.md` files in Week 3's project folders for practical setup instructions
 
-Whether you want to use existing servers or create new ones, MCP makes it simple to give AI applications the context they need to be truly helpful in your specific situation.
+Keep building! 🎗️

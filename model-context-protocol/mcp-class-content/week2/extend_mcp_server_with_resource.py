@@ -28,7 +28,7 @@ def get_city_catalog() -> str:
     Returns a plain-text list with city names and their time zones."""
 
     return """
-    Supported Cities — Weather Assistant Server
+    Supported Cities,  Weather Assistant Server
     ============================================
     City        | Time Zone         | Country
     ------------|-------------------|----------
