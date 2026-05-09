@@ -29,3 +29,5 @@ A comprehensive, hands-on course covering OpenClaw from first principles to prod
 Lesson below.
 
 [Lesson 1 — The Personal AI Employee: Architecture & Mental Models](./lesson-one-personal-ai-employee.md)
+
+[Lesson 2 — Install & Connect Your Employee](./lesson-two-install-and-connect-your-employee.md)
