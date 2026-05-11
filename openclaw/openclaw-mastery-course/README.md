@@ -31,3 +31,7 @@ Lesson below.
 [Lesson 1 — The Personal AI Employee: Architecture & Mental Models](./lesson-one-personal-ai-employee.md)
 
 [Lesson 2 — Install & Connect Your Employee](./lesson-two-install-and-connect-your-employee.md)
+
+[Lesson 3 — Task Delegation and Tool Profile](./lesson-three-task-delegation-and-tool-profile.md)
+
+[Lesson 4 — Customize Your Employee's Brain](./lesson-four-customize-your-employee-brain.md)
