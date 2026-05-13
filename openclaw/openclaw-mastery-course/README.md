@@ -35,3 +35,7 @@ Lesson below.
 [Lesson 3 — Task Delegation and Tool Profile](./lesson-three-task-delegation-and-tool-profile.md)
 
 [Lesson 4 — Customize Your Employee's Brain](./lesson-four-customize-your-employee-brain.md)
+
+[Lesson 5 - Memory & Commands](./lesson-five-memory-and-commands.md)
+
+[Lesson 6 - Install & Discover the Ecosystem](./lesson-six-install-and-discover-the-ecosystem.md)
