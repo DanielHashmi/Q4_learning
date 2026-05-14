@@ -39,3 +39,5 @@ Lesson below.
 [Lesson 5 - Memory & Commands](./lesson-five-memory-and-commands.md)
 
 [Lesson 6 - Install & Discover the Ecosystem](./lesson-six-install-and-discover-the-ecosystem.md)
+
+[Lesson 7 — Connect External Tools (MCP Servers)](./lesson-seven-connect-external-tools.md)
