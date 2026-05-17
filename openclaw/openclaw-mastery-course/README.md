@@ -45,3 +45,5 @@ Lesson below.
 [Lesson 8 — Make It Proactive (Heartbeats & Cron Jobs)](./lesson-eight-make-it-proactive.md)
 
 [Lesson 9 — Give It a Voice (TTS)](./lesson-nine-give-it-a-voice.md)
+
+[Lesson 10 — Add a Second Agent](./lesson-ten-add-a-second-agent.md)
