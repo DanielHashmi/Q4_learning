@@ -47,3 +47,5 @@ Lesson below.
 [Lesson 9 — Give It a Voice (TTS)](./lesson-nine-give-it-a-voice.md)
 
 [Lesson 10 — Add a Second Agent](./lesson-ten-add-a-second-agent.md)
+
+[Lesson 11 — Connecting Google Workspace](./lesson-eleven-connect-google-workspace.md)
