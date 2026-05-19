@@ -49,3 +49,5 @@ Lesson below.
 [Lesson 10 — Add a Second Agent](./lesson-ten-add-a-second-agent.md)
 
 [Lesson 11 — Connecting Google Workspace](./lesson-eleven-connect-google-workspace.md)
+
+[Lesson 12 — Orchestrate Other Agents](./lesson-twelve-orchestrate-other-agents.md)
