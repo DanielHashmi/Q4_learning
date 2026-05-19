@@ -126,7 +126,7 @@ Session Lane A: [Book 2pm] ──→ [Change to 3pm]
 
 ### Layer 2: Global Lane (Shared)
 
-The global lane is shared across all session lanes. Default `maxConcurrent = 4`.
+The global lane is shared across all session lanes. If `maxConcurrent = 4`.
 
 ```
 Session Lane A ──┐
@@ -148,7 +148,7 @@ When a session lane's message is ready to process, it enqueues into the global l
 4. Customer 5 queues in the global lane
 5. When one of the 4 finishes (typical agent turn: 3-8 seconds), customer 5 is dequeued
 
-Customer 5 waits approximately 3-8 seconds. Not minutes. Seconds.
+Customer 5 waits approximately 3-8 seconds. Not minutes..
 
 ### Real-World Scale: 55 Customers
 
@@ -167,11 +167,11 @@ Session lanes are completely independent. Customer A's conversation history, con
 ### Adjusting Concurrency
 
 ```bash
-# Check current setting
-openclaw config get agents.defaults.maxConcurrent
+# Default setting
+openclaw config get agents.defaults.maxConcurrent 8
 
 # Increase for a more powerful server
-openclaw config set agents.defaults.maxConcurrent 8
+openclaw config set agents.defaults.maxConcurrent 10
 ```
 
 **Constraint:** Your model provider must handle the parallel request volume. At `maxConcurrent=4`, that is 4 simultaneous API calls. Free-tier providers with 15 requests per minute will hit rate limits within seconds. This is another reason production orchestration requires a paid model provider.
@@ -255,9 +255,7 @@ When done:
 
 > ⚠️ **ACP sessions are NOT sandboxed.** Claude Code spawned via `/acp spawn claude` has the same filesystem access as Claude Code running in your terminal. The `permissionMode` you configured applies to all ACP sessions, whether you spawn them manually or the agent spawns them programmatically.
 
-
 > **On Discord/Slack:** Use `--thread auto` to place the ACP session in its own thread for continuous back-and-forth. WhatsApp does not support threads, so `--bind here` is the only option.
-
 
 ### Your Agent Can Spawn Claude Code Too
 
@@ -425,7 +423,7 @@ If the success rate is below 4/5, your model is not reliable enough for autonomo
 **Two-layer concurrency:**
 
 - Session lane (per-customer): sequential, preserves conversation order
-- Global lane (shared): parallel, default `maxConcurrent=4`
+- Global lane (shared): parallel, default `maxConcurrent=8`
 - With 4 slots and 7 customers: customers 1-4 start immediately, 5-7 wait ~5 seconds
 - `maxConcurrent` must not exceed your model provider's rate limit
 
