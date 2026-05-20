@@ -51,3 +51,5 @@ Lesson below.
 [Lesson 11 — Connecting Google Workspace](./lesson-eleven-connect-google-workspace.md)
 
 [Lesson 12 — Orchestrate Other Agents](./lesson-twelve-orchestrate-other-agents.md)
+
+[Lesson 13 — Gate Your Agent's Tools](./lesson-thirteen-gate-your-agent-tools.md)
