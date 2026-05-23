@@ -55,3 +55,5 @@ Lesson below.
 [Lesson 13 — Gate Your Agent's Tools](./lesson-thirteen-gate-your-agent-tools.md)
 
 [Lesson 14 — Deploy to Production](./lesson-fourteen-deploy-to-production.md)
+
+[Lesson 15 — Isolate with NemoClaw](./lesson-fifteen-isolate-with-nemoclaw.md)
