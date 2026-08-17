@@ -1,0 +1,8 @@
+{
+  "name": "02-conditional-loop",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "node test.js"
+  }
+}
