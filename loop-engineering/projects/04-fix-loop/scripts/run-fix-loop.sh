@@ -46,6 +46,8 @@ run_case() {
   local case_name="$1"
   local branch="fix/project-04-${case_name}-${run_id}"
   local worktree="$repo_root/.worktrees/project-04-${case_name}-${run_id}"
+  local project_rel="${project_dir#"$repo_root/"}"
+  local candidate_dir="$worktree/$project_rel"
   local case_dir="$artifact_dir/$case_name"
   local maker_output="$case_dir/maker.txt"
   local reviewer_output="$case_dir/reviewer.txt"
@@ -61,7 +63,7 @@ run_case() {
   git -C "$repo_root" worktree add -b "$branch" "$worktree" HEAD
 
   if [[ "$case_name" == "bad" ]]; then
-    "$project_dir/scripts/plant-bad-fix.sh" "$worktree"
+    "$project_dir/scripts/plant-bad-fix.sh" "$candidate_dir"
   fi
 
   local maker_prompt
@@ -72,7 +74,7 @@ run_case() {
   fi
 
   (
-    cd "$worktree"
+    cd "$candidate_dir"
     "$agent_bin" run --auto --model "$agent_model" --agent maker "$maker_prompt"
   ) >"$maker_output" 2>&1 || {
     printf 'FAIL\nMaker command failed.\n' >"$verdict_file"
@@ -81,7 +83,7 @@ run_case() {
   }
 
   (
-    cd "$worktree"
+    cd "$candidate_dir"
     "$agent_bin" run --auto --model "$agent_model" --agent reviewer \
       'Review the current candidate against the Project 4 coupon-fix task. Return PASS or FAIL as your first non-empty line, then evidence.'
   ) >"$reviewer_output" 2>&1 || true
@@ -93,14 +95,14 @@ run_case() {
     *) printf 'FAIL\nMalformed reviewer output.\n' >"$verdict_file" ; verdict="FAIL" ;;
   esac
 
-  if ! (cd "$worktree" && npm test >"$case_dir/tests.txt" 2>&1 && npm run lint >"$case_dir/lint.txt" 2>&1); then
+  if ! (cd "$candidate_dir" && npm test >"$case_dir/tests.txt" 2>&1 && npm run lint >"$case_dir/lint.txt" 2>&1); then
     verdict="FAIL"
     printf 'FAIL\nIndependent test or lint verification failed.\n' >"$verdict_file"
   fi
 
   if [[ "$case_name" == "good" && "$verdict" == "PASS" ]]; then
     if command -v gh >/dev/null 2>&1 && [[ -n "${GITHUB_ACTIONS:-}" ]]; then
-      git -C "$worktree" add src/coupon.js
+      git -C "$worktree" add -- "$project_rel/src/coupon.js"
       git -C "$worktree" commit -m "fix: validate coupon codes before discounting"
       git -C "$worktree" push --set-upstream origin "$branch"
       gh pr create --base main --head "$branch" \
