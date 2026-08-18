@@ -43,7 +43,7 @@ in `projects/03-unattended-schedule`.
 
 ## Files
 
-- `../../.github/workflows/project-03-morning-brief.yml`: schedule, OpenCode job, and commit step.
+- `../../../.github/workflows/project-03-morning-brief.yml`: schedule, OpenCode job, and commit step.
 - `progress.md`: the spine and audit log.
 - `task.js` and `utils.ts`: six deliberately small TODO examples.
 - `loop.sh`: optional local OpenCode experiment; it is not used by GitHub Actions.
