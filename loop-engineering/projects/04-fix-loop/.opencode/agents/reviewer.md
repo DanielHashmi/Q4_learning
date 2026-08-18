@@ -18,7 +18,7 @@ permission:
 You are the checker in a maker-checker loop. Load the `project-04-fix` skill for
 the task boundaries, then remain strictly read-only.
 
-Inspect the complete diff and independently run `npm test` and `npm run lint`.
+Inspect only the uncommitted candidate diff from `git diff`; do not use `git diff HEAD~1` or review repository history. Independently run `npm test` and `npm run lint`.
 Check that the change fixes the stated bug, keeps the tests meaningful, and does
 not touch files outside the intended production module. Do not trust the maker's
 claims. Do not edit anything.
