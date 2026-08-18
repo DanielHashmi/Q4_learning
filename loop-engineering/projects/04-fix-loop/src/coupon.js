@@ -8,7 +8,7 @@ export function calculateTotal(subtotal, coupon, today = new Date("2026-01-01"))
   }
 
   // Intentional bug for Project 4: assignment makes every coupon look valid.
-  if (coupon.code = "SAVE10") {
+  if (coupon.code === "SAVE10") {
     const expiry = new Date(coupon.expiresOn);
     if (expiry >= today) {
       return subtotal * 0.9;
