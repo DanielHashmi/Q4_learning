@@ -16,7 +16,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  id-token: write
 
 jobs:
   fix-loop:
@@ -28,20 +27,20 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
-      - name: Run OpenCode orchestration
-        uses: anomalyco/opencode/github@latest
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install OpenCode CLI
+        run: npm install --global opencode-ai
+
+      - name: Run Project 4 orchestration
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          model: opencode/big-pickle
-          use_github_token: true
-          prompt: |
-            Run the Project 4 maker-checker loop exactly as documented.
-            Execute:
-            bash loop-engineering/projects/04-fix-loop/scripts/run-fix-loop.sh --scenario ${{ inputs.scenario }}
-            Do not edit tests, workflow files, agent files, or unrelated projects.
-            Do not merge any pull request. Report the final verdict and artifact path.
+          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
+        run: bash loop-engineering/projects/04-fix-loop/scripts/run-fix-loop.sh --scenario ${{ inputs.scenario }}
 
       - name: Upload Project 4 evidence
         if: always()
