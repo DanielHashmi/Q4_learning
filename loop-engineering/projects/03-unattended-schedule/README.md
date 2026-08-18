@@ -39,7 +39,7 @@ The next fresh runner starts with that committed spine
 
 The GitHub Actions workflow is at the repository root because GitHub discovers
 workflows only from `.github/workflows/`. The project itself remains self-contained
-in `projects/03-unattended-schedule`.
+in `loop-engineering/projects/03-unattended-schedule`.
 
 ## Files
 

@@ -34,36 +34,36 @@ jobs:
           use_github_token: true
           prompt: |
             You maintain the Project 3 morning TODO brief. Work only in
-            projects/03-unattended-schedule.
+            loop-engineering/projects/03-unattended-schedule.
 
-            1. Read projects/03-unattended-schedule/progress.md before doing anything else.
-            2. Scan only projects/03-unattended-schedule/task.js and
-               projects/03-unattended-schedule/utils.ts for TODO comments.
+            1. Read loop-engineering/projects/03-unattended-schedule/progress.md before doing anything else.
+            2. Scan only loop-engineering/projects/03-unattended-schedule/task.js and
+               loop-engineering/projects/03-unattended-schedule/utils.ts for TODO comments.
             3. Treat a TODO as already recorded only when its exact
                "- filename:line - TODO: description" entry is already in progress.md.
             4. Append one dated section to progress.md. Add only TODOs not already
                recorded. If there are none, write exactly "No new TODOs found."
             5. Do not modify task.js, utils.ts, the workflow, or any file outside
-               projects/03-unattended-schedule/progress.md.
+               loop-engineering/projects/03-unattended-schedule/progress.md.
             6. Report the total TODOs scanned, new TODOs, and previously recorded TODOs.
 
       - name: Commit the updated spine
         shell: bash
         run: |
           changed_files="$(git diff --name-only)"
-          if [ -n "$changed_files" ] && [ "$changed_files" != "projects/03-unattended-schedule/progress.md" ]; then
+          if [ -n "$changed_files" ] && [ "$changed_files" != "loop-engineering/projects/03-unattended-schedule/progress.md" ]; then
             echo "OpenCode changed files outside the allowed spine:"
             echo "$changed_files"
             exit 1
           fi
 
-          if git diff --quiet -- projects/03-unattended-schedule/progress.md; then
+          if git diff --quiet -- loop-engineering/projects/03-unattended-schedule/progress.md; then
             echo "OpenCode made no spine changes."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add projects/03-unattended-schedule/progress.md
+          git add loop-engineering/projects/03-unattended-schedule/progress.md
           git commit -m "chore(project-03): update morning TODO brief"
           git push origin HEAD:main
