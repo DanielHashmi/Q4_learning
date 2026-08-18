@@ -93,7 +93,7 @@ must not repeat the six TODO list.
   manual trigger when testing.
 - The concurrency lock prevents two overlapping runs from reading the same stale
   spine and committing conflicting updates.
-- The model is `opencode/claude-sonnet-4-5`. Change it only to a model available
+- The model is `opencode/big-pickle`. Change it only to a model available
   to your OpenCode account.
 - Never store API keys in files or commits. Use only the repository secret.
 

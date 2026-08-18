@@ -30,7 +30,7 @@ jobs:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          model: opencode/claude-sonnet-4-5
+          model: opencode/big-pickle
           use_github_token: true
           prompt: |
             You maintain the Project 3 morning TODO brief. Work only in
