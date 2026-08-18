@@ -1,6 +1,6 @@
 ---
 description: Implements the smallest safe fix for Project 4 and verifies it.
-mode: subagent
+mode: primary
 model: opencode/big-pickle
 permission:
   edit: allow
