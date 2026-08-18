@@ -1,0 +1,52 @@
+name: Project 4 - Safe Fix Loop
+
+on:
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: Candidate proof to run
+        required: true
+        type: choice
+        options:
+          - both
+          - good
+          - bad
+        default: both
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  fix-loop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Run OpenCode orchestration
+        uses: anomalyco/opencode/github@latest
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          model: opencode/big-pickle
+          use_github_token: true
+          prompt: |
+            Run the Project 4 maker-checker loop exactly as documented.
+            Execute:
+            bash loop-engineering/projects/04-fix-loop/scripts/run-fix-loop.sh --scenario ${{ inputs.scenario }}
+            Do not edit tests, workflow files, agent files, or unrelated projects.
+            Do not merge any pull request. Report the final verdict and artifact path.
+
+      - name: Upload Project 4 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-04-fix-loop-${{ github.run_id }}
+          path: loop-engineering/projects/04-fix-loop/artifacts/
+          if-no-files-found: warn
