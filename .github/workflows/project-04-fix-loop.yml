@@ -35,7 +35,12 @@ jobs:
       - name: Install OpenCode CLI
         run: npm install --global opencode-ai
 
-      - name: Configure Git identity`n        run: |`n          git config --global user.name "github-actions[bot]"`n          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"`n`n      - name: Run Project 4 orchestration
+      - name: Configure Git identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Run Project 4 orchestration
         env:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           GITHUB_TOKEN: ${{ github.token }}
