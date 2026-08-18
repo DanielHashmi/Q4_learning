@@ -1,20 +1,20 @@
 # Project 3: Morning TODO Brief With a Spine
 
-This project is a small unattended loop that turns open TODO comments into a
-morning brief. It runs in GitHub Actions, so it keeps working while the laptop
-is closed. OpenCode performs the scan and update; `progress.md` is the durable
-memory between fresh GitHub runners.
+This project is an unattended GitHub Actions loop that turns TODO comments into
+a short, durable morning brief. Every Actions runner is fresh; `progress.md` is
+the committed memory that lets the next run avoid repeating prior findings.
 
 ## What It Demonstrates
 
-Project 3 has two required parts from the course:
+- **Heartbeat:** GitHub Actions runs at 9:00 AM Asia/Karachi, Monday to Friday.
+- **Spine:** Each run reads `progress.md`, updates it through OpenCode, and
+  commits the result to `main`.
+- **Guardrail:** The workflow fails if OpenCode changes any file other than
+  `progress.md`.
 
-- **Heartbeat:** GitHub Actions runs at 9:00 AM Asia/Karachi, Monday through Friday.
-- **Spine:** Every run reads and updates `progress.md`, then GitHub commits it.
-
-The first run records six TODOs. The second run sees those same entries in the
-spine and records no duplicates. That is the proof that a fresh runner has
-memory of earlier work.
+The original first run recorded six TODOs. The next run recorded only `No new
+TODOs found.` This proves that two separate, fresh GitHub runners shared state
+through the committed spine.
 
 ## How A Run Works
 
@@ -25,82 +25,76 @@ GitHub schedule or manual trigger
 Fresh Ubuntu runner checks out main
         |
         v
-OpenCode reads progress.md and scans the two sample files
+OpenCode CLI reads progress.md and scans task.js plus utils.ts
         |
         v
-OpenCode appends only new TODOs, or "No new TODOs found."
+OpenCode appends new TODOs, or "No new TODOs found."
         |
         v
-GitHub Actions commits progress.md to main
+GitHub Actions commits only progress.md to main
         |
         v
 The next fresh runner starts with that committed spine
 ```
 
-The GitHub Actions workflow is at the repository root because GitHub discovers
-workflows only from `.github/workflows/`. The project itself remains self-contained
-in `loop-engineering/projects/03-unattended-schedule`.
+The workflow lives at the Git repository root because GitHub discovers workflows
+only from `.github/workflows/`. The project code and its state remain in
+`loop-engineering/projects/03-unattended-schedule`.
 
 ## Files
 
-- `../../../.github/workflows/project-03-morning-brief.yml`: schedule, OpenCode job, and commit step.
+- `../../../.github/workflows/project-03-morning-brief.yml`: schedule, OpenCode CLI invocation, and guarded commit.
 - `progress.md`: the spine and audit log.
 - `task.js` and `utils.ts`: six deliberately small TODO examples.
-- `loop.sh`: optional local OpenCode experiment; it is not used by GitHub Actions.
+- `loop.sh`: optional local experiment; GitHub Actions uses the workflow instead.
 
 ## Required Setup
 
-1. Commit and push this repository to GitHub's `main` branch.
+1. Commit and push the repository's `main` branch to GitHub.
 2. In GitHub, open **Settings -> Secrets and variables -> Actions**.
-3. Create a repository secret named `OPENCODE_API_KEY`.
-4. Put an OpenCode API key in that secret. Do not use an Anthropic key for this workflow.
-5. Ensure the OpenCode workspace behind that key has an active payment method or available API credit.
-6. In **Settings -> Actions -> General**, ensure workflows have read/write repository permissions.
-7. If `main` is protected, allow GitHub Actions to push this workflow's commit or configure an appropriate bypass rule.
+3. Create a repository secret named `OPENCODE_API_KEY` with your OpenCode API key.
+4. In **Settings -> Actions -> General**, allow workflows to have read/write repository permissions.
+5. If `main` is protected, allow GitHub Actions to push this workflow's spine commits or configure an appropriate bypass rule.
 
-The workflow uses the built-in `GITHUB_TOKEN` only to commit the already-reviewed
-spine update. It has no issue or pull-request permissions.
+The workflow installs OpenCode, runs `opencode run --model opencode/big-pickle`,
+and uses the built-in `GITHUB_TOKEN` only to commit `progress.md`. Big Pickle is
+the free OpenCode model used by the verified runs.
 
-## Proving The Spine
+## Verified Proof
 
-After the workflow is on `main`, open **Actions**, choose **Project 3 - Morning
-TODO Brief**, and select **Run workflow** twice.
+The workflow was tested manually twice on August 18, 2026:
 
-Expected first run:
+- [First proof run](https://github.com/DanielHashmi/Q4_learning/actions/runs/32106497786) recorded all six TODOs.
+- [Second proof run](https://github.com/DanielHashmi/Q4_learning/actions/runs/32106577026) added only `No new TODOs found.`
 
-```text
-6 TODOs scanned
-6 new TODOs recorded in progress.md
-```
+The matching commits are `f895a4c` and `5bd31a5`. The current
+`progress.md` therefore already contains the completed proof.
 
-Expected second run:
+## Rehearse The Spine Again
 
-```text
-6 TODOs scanned
-0 new TODOs recorded
-No new TODOs found.
-```
+To demonstrate the same behavior yourself after cloning the completed project:
 
-After each successful run, the workflow creates a commit named
-`chore(project-03): update morning TODO brief`. On the second run,
-`progress.md` must contain a new dated section with `No new TODOs found.` and
-must not repeat the six TODO list.
+1. Add one new TODO comment to `task.js` or `utils.ts`.
+2. Open **Actions**, choose **Project 3 - Morning TODO Brief**, and select **Run workflow**.
+3. Confirm the run adds exactly that TODO to `progress.md` and commits it.
+4. Run the same workflow again without changing the sample files.
+5. Confirm the second run adds only a dated `No new TODOs found.` entry.
+
+This is a better rehearsal than expecting the original six TODOs to be new a
+second time: the committed spine deliberately remembers them already.
 
 ## Operational Notes
 
 - Scheduled workflows run from the latest commit on the default branch.
-- GitHub Actions may delay scheduled runs during periods of high load. Use the
-  manual trigger when testing.
-- The concurrency lock prevents two overlapping runs from reading the same stale
-  spine and committing conflicting updates.
-- The model is `opencode/big-pickle`. Change it only to a model available
-  to your OpenCode account.
-- Never store API keys in files or commits. Use only the repository secret.
+- GitHub Actions can delay scheduled runs during high load; use manual dispatch for testing.
+- The concurrency lock prevents two runs from reading the same stale spine.
+- API keys stay in GitHub Secrets and never belong in source files or commits.
+- The workflow is intentionally narrow: OpenCode may update the spine, but not the sample code or workflow.
 
 ## Success Criteria
 
 - The workflow appears in the repository Actions tab.
-- The first run records all six TODOs.
-- The second run records no duplicate TODOs.
-- The second run commits a `No new TODOs found.` entry to `progress.md`.
-- The laptop can be closed for scheduled runs.
+- A run records a newly introduced TODO exactly once.
+- A following run records no duplicate TODO entries.
+- Every allowed state change is a `progress.md` commit.
+- Scheduled runs continue with the laptop closed.
