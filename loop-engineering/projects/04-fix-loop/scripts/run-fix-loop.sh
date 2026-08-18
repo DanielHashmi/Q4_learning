@@ -88,6 +88,13 @@ run_case() {
       'Review the current candidate against the Project 4 coupon-fix task. Return PASS or FAIL as your first non-empty line, then evidence.'
   ) >"$reviewer_output" 2>&1 || true
 
+  local changed_files
+  changed_files="$(git -C "$worktree" diff --name-only)"
+  local scope_ok=true
+  if [[ "$changed_files" != "$project_rel/src/coupon.js" ]]; then
+    scope_ok=false
+  fi
+
   local verdict
   verdict="$(awk '$0 == "PASS" || $0 == "FAIL" { print; exit }' "$reviewer_output")"
   case "$verdict" in
@@ -95,7 +102,10 @@ run_case() {
     *) printf 'FAIL\nMalformed reviewer output.\n' >"$verdict_file" ; verdict="FAIL" ;;
   esac
 
-  if ! (cd "$candidate_dir" && npm test >"$case_dir/tests.txt" 2>&1 && npm run lint >"$case_dir/lint.txt" 2>&1); then
+  if [[ "$scope_ok" != true ]]; then
+    verdict="FAIL"
+    printf 'FAIL\nScope violation: only %s may change.\n' "$project_rel/src/coupon.js" >"$verdict_file"
+  elif ! (cd "$candidate_dir" && npm test >"$case_dir/tests.txt" 2>&1 && npm run lint >"$case_dir/lint.txt" 2>&1); then
     verdict="FAIL"
     printf 'FAIL\nIndependent test or lint verification failed.\n' >"$verdict_file"
   fi
