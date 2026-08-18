@@ -54,8 +54,9 @@ in `projects/03-unattended-schedule`.
 2. In GitHub, open **Settings -> Secrets and variables -> Actions**.
 3. Create a repository secret named `OPENCODE_API_KEY`.
 4. Put an OpenCode API key in that secret. Do not use an Anthropic key for this workflow.
-5. In **Settings -> Actions -> General**, ensure workflows have read/write repository permissions.
-6. If `main` is protected, allow GitHub Actions to push this workflow's commit or configure an appropriate bypass rule.
+5. Ensure the OpenCode workspace behind that key has an active payment method or available API credit.
+6. In **Settings -> Actions -> General**, ensure workflows have read/write repository permissions.
+7. If `main` is protected, allow GitHub Actions to push this workflow's commit or configure an appropriate bypass rule.
 
 The workflow uses the built-in `GITHUB_TOKEN` only to commit the already-reviewed
 spine update. It has no issue or pull-request permissions.
