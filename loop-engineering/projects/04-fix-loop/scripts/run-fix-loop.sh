@@ -89,7 +89,7 @@ run_case() {
   ) >"$reviewer_output" 2>&1 || true
 
   local verdict
-  verdict="$(awk 'NF { print; exit }' "$reviewer_output")"
+  verdict="$(awk '$0 == "PASS" || $0 == "FAIL" { print; exit }' "$reviewer_output")"
   case "$verdict" in
     PASS|FAIL) printf '%s\n' "$verdict" >"$verdict_file" ;;
     *) printf 'FAIL\nMalformed reviewer output.\n' >"$verdict_file" ; verdict="FAIL" ;;
