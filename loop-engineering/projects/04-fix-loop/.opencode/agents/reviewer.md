@@ -1,6 +1,6 @@
 ---
 description: Strict read-only checker for Project 4 fix candidates.
-mode: subagent
+mode: primary
 model: opencode/big-pickle
 permission:
   edit: deny
