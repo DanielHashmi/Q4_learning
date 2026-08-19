@@ -12,6 +12,11 @@ on:
           - good
           - bad
         default: both
+      base_branch:
+        description: Branch that receives the candidate PR
+        required: true
+        type: string
+        default: main
 
 permissions:
   contents: write
@@ -45,6 +50,7 @@ jobs:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           GITHUB_TOKEN: ${{ github.token }}
           GH_TOKEN: ${{ github.token }}
+          PR_BASE: ${{ inputs.base_branch }}
         run: bash loop-engineering/projects/04-fix-loop/scripts/run-fix-loop.sh --scenario ${{ inputs.scenario }}
 
       - name: Upload Project 4 evidence

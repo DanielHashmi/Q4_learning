@@ -28,6 +28,7 @@ project_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 repo_root=$(cd "$project_dir/../../.." && pwd)
 agent_model="${OPENCODE_MODEL:-opencode/big-pickle}"
 agent_bin="${OPENCODE_BIN:-opencode}"
+pr_base="${PR_BASE:-main}"
 run_id="$(date -u +%Y%m%dT%H%M%SZ)-$$"
 artifact_dir="${ARTIFACT_DIR:-$project_dir/artifacts/$run_id}"
 mkdir -p "$artifact_dir"
@@ -156,7 +157,7 @@ PY
         git -C "$worktree" add -- "$project_rel/src/coupon.js"
         git -C "$worktree" commit -m "fix: validate coupon codes before discounting"
         git -C "$worktree" push --set-upstream origin "$branch"
-        gh pr create --base main --head "$branch" \
+        gh pr create --base "$pr_base" --head "$branch" \
           --title "fix: validate coupon codes before discounting" \
           --body "Automated Project 4 candidate. Reviewer verdict: PASS. Tests and lint passed independently."
       else
