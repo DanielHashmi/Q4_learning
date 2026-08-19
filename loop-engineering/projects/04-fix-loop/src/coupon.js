@@ -7,7 +7,7 @@ export function calculateTotal(subtotal, coupon, today = new Date("2026-01-01"))
     return subtotal;
   }
 
-  if (coupon.code = "SAVE10") {
+  if (coupon.code === "SAVE10") {
     const expiry = new Date(coupon.expiresOn);
     if (expiry >= today) {
       return subtotal * 0.9;
