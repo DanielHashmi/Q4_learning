@@ -52,6 +52,7 @@ run_case() {
   local maker_output="$case_dir/maker.txt"
   local reviewer_output="$case_dir/reviewer.txt"
   local verdict_file="$case_dir/verdict.txt"
+  local baseline_coupon="$case_dir/coupon.before.js"
   mkdir -p "$case_dir"
 
   cleanup() {
@@ -79,6 +80,10 @@ PY
   fi
   if [[ "$case_name" == "bad" ]]; then
     "$project_dir/scripts/plant-bad-fix.sh" "$candidate_dir"
+  fi
+
+  if [[ "$case_name" == "good" ]]; then
+    cp "$candidate_dir/src/coupon.js" "$baseline_coupon"
   fi
 
   local maker_prompt
@@ -120,7 +125,11 @@ PY
   local changed_files
   changed_files="$(git -C "$worktree" diff --name-only)"
   local scope_ok=true
-  if [[ "$changed_files" != "$project_rel/src/coupon.js" ]]; then
+  if [[ "$case_name" == "good" && -f "$baseline_coupon" && -z "$changed_files" ]]; then
+    if cmp -s "$baseline_coupon" "$candidate_dir/src/coupon.js"; then
+      scope_ok=false
+    fi
+  elif [[ "$changed_files" != "$project_rel/src/coupon.js" ]]; then
     scope_ok=false
   fi
 
@@ -141,12 +150,16 @@ PY
 
   if [[ "$case_name" == "good" && "$verdict" == "PASS" ]]; then
     if command -v gh >/dev/null 2>&1 && [[ -n "${GITHUB_ACTIONS:-}" ]]; then
-      git -C "$worktree" add -- "$project_rel/src/coupon.js"
-      git -C "$worktree" commit -m "fix: validate coupon codes before discounting"
-      git -C "$worktree" push --set-upstream origin "$branch"
-      gh pr create --base main --head "$branch" \
-        --title "fix: validate coupon codes before discounting" \
-        --body "Automated Project 4 candidate. Reviewer verdict: PASS. Tests and lint passed independently."
+      if [[ -n "$changed_files" ]]; then
+        git -C "$worktree" add -- "$project_rel/src/coupon.js"
+        git -C "$worktree" commit -m "fix: validate coupon codes before discounting"
+        git -C "$worktree" push --set-upstream origin "$branch"
+        gh pr create --base main --head "$branch" \
+          --title "fix: validate coupon codes before discounting" \
+          --body "Automated Project 4 candidate. Reviewer verdict: PASS. Tests and lint passed independently."
+      else
+        echo "PASS: fix already exists on main; no duplicate PR created." | tee "$case_dir/pr.txt"
+      fi
     else
       echo "PASS: local proof complete; PR creation is enabled only in GitHub Actions." | tee "$case_dir/pr.txt"
     fi
