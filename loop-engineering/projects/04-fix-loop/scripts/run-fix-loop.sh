@@ -62,7 +62,21 @@ run_case() {
 
   git -C "$repo_root" worktree add -b "$branch" "$worktree" HEAD
 
-  if [[ "$case_name" == "bad" ]]; then
+  if [[ "$case_name" == "good" ]]; then
+    python - "$candidate_dir/src/coupon.js" <<'PY'
+from pathlib import Path
+import sys
+
+path = Path(sys.argv[1])
+text = path.read_text()
+fixed = 'if (coupon.code === "SAVE10") {'
+buggy = 'if (coupon.code = "SAVE10") {'
+if fixed in text:
+    path.write_text(text.replace(fixed, buggy, 1))
+elif buggy not in text:
+    raise SystemExit("expected coupon validation line was not found")
+PY
+  elif [[ "$case_name" == "bad" ]]; then
     "$project_dir/scripts/plant-bad-fix.sh" "$candidate_dir"
   fi
 
