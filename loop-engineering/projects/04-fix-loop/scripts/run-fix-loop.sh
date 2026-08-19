@@ -76,7 +76,8 @@ if fixed in text:
 elif buggy not in text:
     raise SystemExit("expected coupon validation line was not found")
 PY
-  elif [[ "$case_name" == "bad" ]]; then
+  fi
+  if [[ "$case_name" == "bad" ]]; then
     "$project_dir/scripts/plant-bad-fix.sh" "$candidate_dir"
   fi
 
