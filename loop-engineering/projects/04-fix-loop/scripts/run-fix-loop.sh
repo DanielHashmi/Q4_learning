@@ -68,7 +68,7 @@ run_case() {
 
   local maker_prompt
   if [[ "$case_name" == "good" ]]; then
-    maker_prompt='Fix the intentional coupon validation bug in this project. The correct behavior is described by the tests. Keep the change minimal and run npm test and npm run lint. Do not edit tests or project infrastructure.'
+    maker_prompt='Fix the intentional coupon validation bug in the currently checked-out src/coupon.js. The correct behavior is described by the tests. Inspect only the current files; do not inspect git history, other branches, or prior commits. Keep the change minimal, leave it uncommitted for the reviewer, and run npm test and npm run lint. Do not edit tests or project infrastructure.'
   else
     maker_prompt='Do not fix the bug. The intentionally bad candidate has already been planted. Inspect the candidate and report what you find, but make no edits.'
   fi
