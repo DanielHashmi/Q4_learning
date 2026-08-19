@@ -97,6 +97,20 @@ PY
     return 1
   }
 
+  if [[ "$case_name" == "good" ]]; then
+    python - "$candidate_dir/src/coupon.js" <<'PY'
+from pathlib import Path
+import sys
+
+path = Path(sys.argv[1])
+text = path.read_text()
+old = 'if (coupon.code = "SAVE10") {'
+new = 'if (coupon.code === "SAVE10") {'
+if old in text:
+    path.write_text(text.replace(old, new, 1))
+PY
+  fi
+
   (
     cd "$candidate_dir"
     "$agent_bin" run --auto --model "$agent_model" --agent reviewer \
