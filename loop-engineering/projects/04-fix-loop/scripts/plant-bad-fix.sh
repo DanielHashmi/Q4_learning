@@ -7,7 +7,7 @@ if [[ -z "$target_dir" || ! -d "$target_dir" ]]; then
   exit 2
 fi
 
-python - "$target_dir/src/coupon.js" <<'PY'
+python3 - "$target_dir/src/coupon.js" <<'PY'
 from pathlib import Path
 import sys
 

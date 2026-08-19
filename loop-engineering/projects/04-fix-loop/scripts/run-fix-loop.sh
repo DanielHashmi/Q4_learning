@@ -64,7 +64,7 @@ run_case() {
   git -C "$repo_root" worktree add -b "$branch" "$worktree" HEAD
 
   if [[ "$case_name" == "good" ]]; then
-    python - "$candidate_dir/src/coupon.js" <<'PY'
+    python3 - "$candidate_dir/src/coupon.js" <<'PY'
 from pathlib import Path
 import sys
 
@@ -105,7 +105,7 @@ PY
   }
 
   if [[ "$case_name" == "good" ]]; then
-    python - "$candidate_dir/src/coupon.js" <<'PY'
+    python3 - "$candidate_dir/src/coupon.js" <<'PY'
 from pathlib import Path
 import sys
 
