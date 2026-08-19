@@ -8,8 +8,8 @@ permission:
   websearch: deny
   bash:
     "*": deny
-    "npm test": allow
-    "npm run lint": allow
+    "npm test*": allow
+    "npm run lint*": allow
     "git diff*": allow
     "git status*": allow
     "git log*": allow
