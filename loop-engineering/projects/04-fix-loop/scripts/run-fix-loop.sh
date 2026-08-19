@@ -134,7 +134,7 @@ PY
   fi
 
   local verdict
-  verdict="$(awk '$0 == "PASS" || $0 == "FAIL" { print; exit }' "$reviewer_output")"
+  verdict="$(sed -E 's/\x1B\[[0-?]*[ -/]*[@-~]//g' "$reviewer_output" | awk '{ normalized=$0; gsub(/[\*`_[:space:]]/, "", normalized); if (normalized == "PASS" || normalized == "FAIL") { print normalized; exit } }')"
   case "$verdict" in
     PASS|FAIL) printf '%s\n' "$verdict" >"$verdict_file" ;;
     *) printf 'FAIL\nMalformed reviewer output.\n' >"$verdict_file" ; verdict="FAIL" ;;
