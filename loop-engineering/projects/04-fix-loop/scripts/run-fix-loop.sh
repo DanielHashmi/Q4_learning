@@ -78,8 +78,10 @@ if fixed in text:
 elif buggy not in text:
     raise SystemExit("expected coupon validation line was not found")
 PY
-    git -C "$worktree" add -- "$project_rel/src/coupon.js"
-    git -C "$worktree" commit -m "chore: seed project 4 coupon bug"
+    if ! git -C "$worktree" diff --quiet -- "$project_rel/src/coupon.js"; then
+      git -C "$worktree" add -- "$project_rel/src/coupon.js"
+      git -C "$worktree" commit -m "chore: seed project 4 coupon bug"
+    fi
   fi
   if [[ "$case_name" == "bad" ]]; then
     "$project_dir/scripts/plant-bad-fix.sh" "$candidate_dir"
