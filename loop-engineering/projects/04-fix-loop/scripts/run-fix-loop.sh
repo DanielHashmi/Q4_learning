@@ -77,6 +77,8 @@ if fixed in text:
 elif buggy not in text:
     raise SystemExit("expected coupon validation line was not found")
 PY
+    git -C "$worktree" add -- "$project_rel/src/coupon.js"
+    git -C "$worktree" commit -m "chore: seed project 4 coupon bug"
   fi
   if [[ "$case_name" == "bad" ]]; then
     "$project_dir/scripts/plant-bad-fix.sh" "$candidate_dir"
@@ -150,7 +152,7 @@ PY
 
   if [[ "$case_name" == "good" && "$verdict" == "PASS" ]]; then
     if command -v gh >/dev/null 2>&1 && [[ -n "${GITHUB_ACTIONS:-}" ]]; then
-      if [[ -n "$changed_files" ]]; then
+      if ! cmp -s "$candidate_dir/src/coupon.js" "$project_dir/src/coupon.js"; then
         git -C "$worktree" add -- "$project_rel/src/coupon.js"
         git -C "$worktree" commit -m "fix: validate coupon codes before discounting"
         git -C "$worktree" push --set-upstream origin "$branch"
