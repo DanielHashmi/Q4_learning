@@ -1,0 +1,9 @@
+{
+  "name": "loop-engineering-project-05-codify-body",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "lint": "node --check src/coupon.js && node --check test/coupon.test.js"
+  }
+}
