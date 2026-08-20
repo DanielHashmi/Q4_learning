@@ -1,0 +1,37 @@
+name: project-06-opencode-review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out pull request
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Review pull request with OpenCode
+        uses: anomalyco/opencode/github@latest
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          model: opencode/claude-opus-4-5
+          use_github_token: true
+          prompt: |
+            Review this pull request as a read-only code reviewer.
+            Look for correctness bugs, especially off-by-one errors and
+            regressions. Run the relevant tests when possible.
+            If you find a real issue, leave a clear pull-request review
+            comment naming the file, behavior, and a minimal fix.
+            Do not modify files, commit, or push changes.
