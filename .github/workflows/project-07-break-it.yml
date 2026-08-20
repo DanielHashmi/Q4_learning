@@ -1,0 +1,46 @@
+name: Project 7 - Break It on Purpose
+
+on:
+  schedule:
+    - cron: "0 10 * * 1-5"
+      timezone: "Asia/Karachi"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Run bounded sabotage or a healthy beat"
+        required: true
+        default: sabotage
+        type: choice
+        options: [sabotage, healthy]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: project-07-break-it
+  cancel-in-progress: false
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_07_MODE: ${{ inputs.mode || 'sabotage' }}
+      MAX_ATTEMPTS: 3
+    steps:
+      - uses: actions/checkout@v6
+      - name: Run bounded loop beat
+        working-directory: loop-engineering/projects/07-break-it-on-purpose
+        run: bash run-loop.sh "$PROJECT_07_MODE"
+      - name: Diagnose from spine after failure
+        if: always() && env.PROJECT_07_MODE == 'sabotage'
+        working-directory: loop-engineering/projects/07-break-it-on-purpose
+        run: bash diagnose.sh
+      - name: Upload failure evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-07-evidence-${{ github.run_id }}
+          path: |
+            loop-engineering/projects/07-break-it-on-purpose/run.log
+            loop-engineering/projects/07-break-it-on-purpose/progress.md
+            loop-engineering/projects/07-break-it-on-purpose/cost.json
