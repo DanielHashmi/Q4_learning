@@ -1,0 +1,9 @@
+{
+  "name": "project-06-doorbell-loop",
+  "private": true,
+  "scripts": {
+    "test": "node --test",
+    "lint": "node scripts/lint.js",
+    "verify": "bash scripts/verify-workflow.sh"
+  }
+}
