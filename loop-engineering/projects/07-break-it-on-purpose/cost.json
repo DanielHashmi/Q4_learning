@@ -1,0 +1,9 @@
+{
+  "cadence": "weekdays",
+  "runs_per_week": 5,
+  "input_tokens": 1200,
+  "output_tokens": 300,
+  "price_per_million_tokens_usd": 0,
+  "monthly_tokens": 32500,
+  "monthly_cost_usd": 0
+}
