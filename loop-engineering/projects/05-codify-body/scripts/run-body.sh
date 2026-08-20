@@ -21,6 +21,7 @@ agent_timeout_seconds="${agent_timeout_seconds%%[!0-9]*}"
 agent_retries="${agent_retries%%[!0-9]*}"
 run_id="$(date -u +%Y%m%dT%H%M%SZ)-$$"
 artifact_dir="${ARTIFACT_DIR:-$project_dir/artifacts/$run_id}"
+agent_runner="$project_dir/scripts/run-opencode.ps1"
 
 if ! [[ "$agent_timeout_seconds" =~ ^[1-9][0-9]*$ ]]; then
   echo "OPENCODE_TIMEOUT_SECONDS must be a positive integer." >&2
@@ -41,6 +42,11 @@ if ! command -v timeout >/dev/null 2>&1; then
   exit 1
 fi
 
+if ! command -v powershell.exe >/dev/null 2>&1; then
+  echo "powershell.exe is required to isolate OpenCode state on Windows." >&2
+  exit 1
+fi
+
 if [[ -e "$artifact_dir" ]]; then
   echo "Artifact directory already exists: $artifact_dir" >&2
   echo "Choose a new ARTIFACT_DIR or remove the old run explicitly." >&2
@@ -52,8 +58,10 @@ fi
 # pre-run status is compared with the post-run status below.
 initial_head="$(git -C "$repo_root" rev-parse --verify HEAD)"
 initial_status="$(git -C "$repo_root" status --porcelain=v1 --untracked-files=all)"
-if [[ -n "$(git -C "$repo_root" diff --name-only)" || -n "$(git -C "$repo_root" diff --cached --name-only)" ]]; then
-  echo "Refusing to run with modified or staged tracked files. Commit or stash them first." >&2
+modified_outside_project="$( { git -C "$repo_root" diff --name-only; git -C "$repo_root" diff --cached --name-only; } | sort -u | awk -v prefix="$project_rel/" 'index($0, prefix) != 1 { print }' )"
+if [[ -n "$modified_outside_project" ]]; then
+  echo "Refusing to run with modified or staged tracked files outside Project 5:" >&2
+  printf '%s\n' "$modified_outside_project" >&2
   exit 1
 fi
 
@@ -218,19 +226,29 @@ agent_path() {
 }
 
 run_agent() {
-  local candidate_dir="$1"
-  local command_name="$2"
-  shift 2
+  local case_name="$1"
+  local candidate_dir="$2"
+  local command_name="$3"
+  shift 3
   local candidate_dir_for_agent
+  local agent_runner_for_agent
+  local state_root="$artifact_dir/opencode-state/$case_name"
   local attempt
   local status=1
   candidate_dir_for_agent="$(agent_path "$candidate_dir")"
+  agent_runner_for_agent="$(agent_path "$agent_runner")"
 
   (
     cd "$candidate_dir"
     for ((attempt=1; attempt<=agent_retries; attempt++)); do
       if timeout --foreground --kill-after=5s "${agent_timeout_seconds}s" \
-        "$agent_bin" "$command_name" --dir "$candidate_dir_for_agent" "$@"; then
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$agent_runner_for_agent" \
+          -Directory "$candidate_dir_for_agent" \
+          -DataHome "$(agent_path "$state_root/data")" \
+          -ConfigHome "$(agent_path "$state_root/config")" \
+          -StateHome "$(agent_path "$state_root/state")" \
+          -OpenCode "$agent_bin" \
+          "$command_name" "$@"; then
         return 0
       else
         status=$?
@@ -348,7 +366,7 @@ PY
       ;;
   esac
 
-  if run_agent "$candidate_dir" run --auto --model "$agent_model" --agent maker "$maker_prompt" >"$maker_output" 2>&1; then
+  if run_agent "$case_name" "$candidate_dir" run --auto --model "$agent_model" --agent maker "$maker_prompt" >"$maker_output" 2>&1; then
     maker_status=0
   else
     maker_status=$?
@@ -358,7 +376,7 @@ PY
     return 1
   fi
 
-  if run_agent "$candidate_dir" run --auto --model "$agent_model" --agent reviewer \
+  if run_agent "$case_name" "$candidate_dir" run --auto --model "$agent_model" --agent reviewer \
     "Review this Project 5 candidate. The intended task is coupon validation. Return PASS or FAIL as your first non-empty line, then evidence." \
     >"$reviewer_output" 2>&1; then
     reviewer_status=0
@@ -366,7 +384,10 @@ PY
     reviewer_status=$?
   fi
 
-  changed_files="$(git -C "$worktree" status --porcelain=v1 --untracked-files=all --ignored | sed -E 's/^.. //')"
+  # OpenCode may materialize its skill runtime under .opencode/node_modules.
+  # That directory is ignored in the candidate baseline; every tracked or
+  # ordinary untracked change remains in scope and is checked below.
+  changed_files="$(git -C "$worktree" status --porcelain=v1 --untracked-files=all | sed -E 's/^.. //')"
   if [[ "$case_name" == "good" && "$changed_files" != "$project_rel/src/coupon.js" ]]; then
     scope_ok=false
   elif [[ "$case_name" == "bad" && -n "$changed_files" ]]; then
