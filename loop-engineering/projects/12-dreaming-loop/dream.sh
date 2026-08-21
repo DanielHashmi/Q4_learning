@@ -26,11 +26,15 @@ obsolete = []
 for raw in progress_path.read_text(encoding="utf-8").splitlines():
     heading = re.match(r"^###\s+(\S+)", raw)
     if heading:
-        stamp = heading.group(1)[:10]
+        stamp = heading.group(1)
         try:
-            current = (stamp, date.fromisoformat(stamp))
+            parsed = date.fromisoformat(stamp[:10])
         except ValueError:
-            current = None
+            try:
+                parsed = date(int(stamp[:4]), int(stamp[4:6]), int(stamp[6:8]))
+            except (ValueError, IndexError):
+                parsed = None
+        current = (stamp, parsed) if parsed else None
         continue
     if not current or current[1] <= cursor:
         continue
