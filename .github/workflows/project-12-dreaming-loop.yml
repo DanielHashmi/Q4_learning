@@ -1,0 +1,57 @@
+name: Project 12 - Dreaming Loop
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * 1'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: project-12-dreaming-loop
+  cancel-in-progress: false
+
+jobs:
+  dream:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Analyze newer spine entries
+        env:
+          DREAM_RUN_ID: ${{ github.run_id }}
+        run: |
+          bash loop-engineering/projects/12-dreaming-loop/dream.sh
+          bash loop-engineering/projects/12-dreaming-loop/check-proposal.sh loop-engineering/projects/12-dreaming-loop/proposal
+      - name: Ensure only proposal state is changed
+        run: |
+          changed=$(git status --porcelain=v1 --untracked-files=all | sed -E 's/^.. //')
+          expected='loop-engineering/projects/12-dreaming-loop/proposal/dreaming-report.md
+          loop-engineering/projects/12-dreaming-loop/proposal/dreaming-state.md
+          loop-engineering/projects/12-dreaming-loop/proposal/proposed-deletion.md
+          loop-engineering/projects/12-dreaming-loop/proposal/proposed-rules-change.md'
+          test "$changed" = "$(printf '%s\n' "$expected" | sed 's/^          //')"
+          test ! -e CLAUDE.md
+          test ! -e AGENTS.md
+      - name: Open evidence-backed human-gated PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          branch="claude/dreaming-${RUN_ID}"
+          git switch -c "$branch"
+          cp loop-engineering/projects/12-dreaming-loop/proposal/dreaming-state.md loop-engineering/projects/12-dreaming-loop/dreaming-state.md
+          git add loop-engineering/projects/12-dreaming-loop/dreaming-state.md loop-engineering/projects/12-dreaming-loop/proposal
+          git config user.name 'project-12-dreaming[bot]'
+          git config user.email 'project-12-dreaming[bot]@users.noreply.github.com'
+          git commit -m 'chore: propose evidence-backed loop improvement'
+          git push --set-upstream origin "$branch"
+          report=$(cat loop-engineering/projects/12-dreaming-loop/proposal/dreaming-report.md)
+          gh pr create --base main --head "$branch" --title 'chore: propose evidence-backed loop improvement' --body "Dreaming loop proposal. Human review and merge required; no rules file was edited directly.\n\n$report"
+      - name: Upload dreaming evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-12-dreaming-${{ github.run_id }}
+          path: loop-engineering/projects/12-dreaming-loop/proposal

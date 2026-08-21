@@ -17,3 +17,14 @@ action required. This file is read at the start and updated at the end.
 - audit: PASS
 - pr: https://github.com/DanielHashmi/Q4_learning/pull/7
 - human gate: review and merge the PR
+
+### 20260821T090000Z-project12-seed-a
+- status: rehearsal-evidence
+- correction: preflight must run before artifact upload
+- note: deliberately planted Project 12 repeated-failure evidence
+
+### 20260821T100000Z-project12-seed-b
+- status: rehearsal-evidence
+- correction: preflight must run before artifact upload
+- obsolete_rule: temporary debug logging
+- note: deliberately planted Project 12 repeated-failure evidence
