@@ -1,0 +1,31 @@
+name: Project 9 - One-off Routine Rehearsal
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Rehearsal task"
+        required: true
+        type: choice
+        options: [success, failure]
+        default: success
+
+permissions:
+  contents: read
+
+jobs:
+  one-off:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Execute one-off task and preserve transcript
+        working-directory: loop-engineering/projects/09-routine-rehearsal
+        env:
+          MODE: ${{ inputs.mode }}
+        run: bash run-one-off.sh "$MODE"
+      - name: Upload full transcript
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-09-${{ inputs.mode }}-${{ github.run_id }}
+          path: loop-engineering/projects/09-routine-rehearsal/transcript-${{ inputs.mode }}.txt
