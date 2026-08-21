@@ -1,0 +1,42 @@
+name: Project 11 - Routine A Draft
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Create isolated draft
+        id: draft
+        env:
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          branch="claude/project-11-draft-${RUN_ID}"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          bash loop-engineering/projects/11-two-routine-gate/run-a.sh "$RUN_ID" "$branch" loop-engineering/projects/11-two-routine-gate
+          git config user.name 'project-11-routine-a[bot]'
+          git config user.email 'project-11-routine-a[bot]@users.noreply.github.com'
+          git switch -c "$branch"
+          git add loop-engineering/projects/11-two-routine-gate/project-11-draft.md loop-engineering/projects/11-two-routine-gate/progress.md loop-engineering/projects/11-two-routine-gate/transcript-a.txt
+          git commit -m "chore: draft Project 11 follow-up"
+          git push --set-upstream origin "$branch"
+      - name: Open reviewable draft PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.draft.outputs.branch }}
+        run: |
+          gh pr create --base main --head "$BRANCH" --draft \
+            --title "Project 11 draft: review before follow-up" \
+            --body "Routine A created this draft for human review. Do not merge this PR. After reviewing it, explicitly fire Routine B with fire-b.sh. Draft run: ${{ github.run_id }}"
+      - name: Upload Routine A transcript
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-11-routine-a-${{ github.run_id }}
+          path: loop-engineering/projects/11-two-routine-gate/transcript-a.txt
