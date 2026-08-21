@@ -11,7 +11,7 @@ if [[ ! "$run_id" =~ ^[0-9]+$ || ! "$branch" =~ ^claude/project-11-draft-[0-9]+$
   exit 2
 fi
 
-payload=$(python - "$branch" "$run_id" "$approval_note" <<'PY'
+payload=$(python3 - "$branch" "$run_id" "$approval_note" <<'PY'
 import json
 import sys
 print(json.dumps({"ref": "main", "inputs": {
