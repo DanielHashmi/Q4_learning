@@ -1,0 +1,48 @@
+name: Project 8 - Daily Dependency Loop
+
+on:
+  schedule:
+    - cron: "0 9 * * 1-5"
+      timezone: "Asia/Karachi"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: project-08-daily-loop
+  cancel-in-progress: false
+
+jobs:
+  dependency-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out the latest spine
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install OpenCode and GitHub CLI
+        run: |
+          curl -fsSL https://opencode.ai/install | bash
+          echo "$HOME/.opencode/bin" >> "$GITHUB_PATH"
+      - name: Run bounded maker-checker loop
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
+          OPENCODE_TIMEOUT_SECONDS: 300
+          OPENCODE_RETRIES: 3
+        run: bash loop-engineering/projects/08-daily-dependency-loop/scripts/run-daily-loop.sh
+      - name: Upload loop evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-08-daily-loop-${{ github.run_id }}
+          path: loop-engineering/projects/08-daily-dependency-loop/artifacts/
+          if-no-files-found: warn
