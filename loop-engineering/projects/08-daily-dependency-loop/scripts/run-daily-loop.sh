@@ -48,6 +48,9 @@ changed=$(git -C "$worktree_root" status --porcelain=v1 --untracked-files=all | 
 lines=$(git -C "$worktree_root" diff --numstat | awk '{a+=$1; d+=$2} END {print a+d+0}')
 (( lines <= 200 )) || { echo "budget failure: diff lines=$lines"; exit 1; }
 
+git -C "$worktree_root" config user.name "github-actions[bot]"
+git -C "$worktree_root" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
 git -C "$worktree_root" add "$project_rel/audit-report.md"
 git -C "$worktree_root" commit -m "chore(project-08): refresh dependency audit"
 git -C "$worktree_root" push origin "$branch"
@@ -60,6 +63,8 @@ from pathlib import Path
 import sys
 p=Path(sys.argv[1]); text=p.read_text(); text += f"\n### {sys.argv[2]}\n- status: needs_human\n- audit: PASS\n- pr: {sys.argv[3]}\n- human gate: review and merge the PR\n"; p.write_text(text)
 PY
+git -C "$repo_root" config user.name "github-actions[bot]"
+git -C "$repo_root" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 git -C "$repo_root" add "$project_rel/progress.md"
 git -C "$repo_root" commit -m "chore(project-08): record audit run"
 git -C "$repo_root" push origin HEAD:main
