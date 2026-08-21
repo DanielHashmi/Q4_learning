@@ -10,14 +10,17 @@ worktree_root="${RUNNER_TEMP:-/tmp}/project-08-worktree-$run_id"
 branch="automation/project-08-audit-$run_id"
 timeout_seconds="${OPENCODE_TIMEOUT_SECONDS:-300}"
 retries="${OPENCODE_RETRIES:-3}"
-mkdir -p "$artifact_dir"
-exec > >(tee "$artifact_dir/run.log") 2>&1
-printf 'run_id=%s\n' "$run_id"
 
 cleanup() { git -C "$repo_root" worktree remove --force "$worktree_root" >/dev/null 2>&1 || true; git -C "$repo_root" branch -D "$branch" >/dev/null 2>&1 || true; }
 trap cleanup EXIT
 [[ "$timeout_seconds" =~ ^[1-9][0-9]*$ && "$retries" =~ ^[1-9][0-9]*$ ]] || { echo 'invalid budget'; exit 2; }
-[[ -z "$(git -C "$repo_root" status --porcelain)" ]] || { echo 'main checkout must be clean'; exit 1; }
+status_before="$(git -C "$repo_root" status --porcelain)"
+if [[ -n "$status_before" ]]; then
+  echo "main checkout must be clean:"; printf "%s\\n" "$status_before"; exit 1
+fi
+mkdir -p "$artifact_dir"
+exec > >(tee "$artifact_dir/run.log") 2>&1
+printf "run_id=%s\\n" "$run_id"
 git -C "$repo_root" worktree add -b "$branch" "$worktree_root" HEAD
 candidate="$worktree_root/$project_rel"
 
