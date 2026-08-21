@@ -1,0 +1,5 @@
+{
+  "name": "project-08-daily-dependency-loop",
+  "private": true,
+  "scripts": { "test": "node --test", "lint": "node scripts/lint.js" }
+}
