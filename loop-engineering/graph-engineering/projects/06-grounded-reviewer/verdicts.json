@@ -1,0 +1,79 @@
+[
+  {
+    "beat": "beat-1",
+    "maker": "reports a TODO with a source claim",
+    "verdict": {
+      "verdict": "PASS",
+      "grounded_in": [
+        "claim_task_error_handling_todo"
+      ],
+      "missing": [],
+      "rubric": "grounded-reviewer-v1"
+    },
+    "next_attempt": null,
+    "withdrawn": []
+  },
+  {
+    "beat": "beat-2",
+    "maker": "claims a timezone fix without graph support",
+    "verdict": {
+      "verdict": "REVISE",
+      "grounded_in": [],
+      "missing": [
+        "active claim claim_missing_timezone_fix for: timezone handling is fixed"
+      ],
+      "rubric": "grounded-reviewer-v1"
+    },
+    "next_attempt": {
+      "action": "withdraw",
+      "reason": "no source-backed claim existed"
+    },
+    "withdrawn": []
+  },
+  {
+    "beat": "beat-3",
+    "maker": "cites an inference as if it were evidence",
+    "verdict": {
+      "verdict": "REVISE",
+      "grounded_in": [],
+      "missing": [
+        "non-inference evidence for: the daily loop is always safe"
+      ],
+      "rubric": "grounded-reviewer-v1"
+    },
+    "next_attempt": {
+      "action": "withdraw",
+      "reason": "inference cannot ground a factual statement"
+    },
+    "withdrawn": []
+  },
+  {
+    "beat": "beat-4",
+    "maker": "reports two source-backed facts",
+    "verdict": {
+      "verdict": "PASS",
+      "grounded_in": [
+        "claim_task_error_handling_todo",
+        "claim_daily_human_gate"
+      ],
+      "missing": [],
+      "rubric": "grounded-reviewer-v1"
+    },
+    "next_attempt": null,
+    "withdrawn": []
+  },
+  {
+    "beat": "beat-5",
+    "maker": "removes an unsupported assertion after revision",
+    "verdict": {
+      "verdict": "PASS",
+      "grounded_in": [],
+      "missing": [],
+      "rubric": "grounded-reviewer-v1"
+    },
+    "next_attempt": null,
+    "withdrawn": [
+      "unverified deployment success"
+    ]
+  }
+]
