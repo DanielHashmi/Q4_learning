@@ -1,0 +1,137 @@
+[
+  {
+    "beat": 1,
+    "tool_exit_code": 0,
+    "tool_output_bytes": 152,
+    "report": {
+      "facts": [
+        {
+          "text": "service.py is tracked by the repository",
+          "claim_id": "claim_task_error_handling_todo"
+        }
+      ]
+    },
+    "verdict": {
+      "verdict": "PASS",
+      "grounded_in": [
+        "claim_task_error_handling_todo"
+      ],
+      "missing": [],
+      "rubric": "grounded-reviewer-v1"
+    }
+  },
+  {
+    "beat": 2,
+    "tool_exit_code": 0,
+    "tool_output_bytes": 152,
+    "report": {
+      "facts": [
+        {
+          "text": "retries are fixed",
+          "claim_id": "missing_fix_claim"
+        }
+      ],
+      "next_attempt": {
+        "action": "withdraw"
+      }
+    },
+    "verdict": {
+      "verdict": "REVISE",
+      "grounded_in": [],
+      "missing": [
+        "active claim missing_fix_claim for: retries are fixed"
+      ],
+      "rubric": "grounded-reviewer-v1"
+    },
+    "next_attempt": {
+      "report": {
+        "facts": [],
+        "withdrawn": [
+          "retries are fixed"
+        ]
+      },
+      "verdict": {
+        "verdict": "PASS",
+        "grounded_in": [],
+        "missing": [],
+        "rubric": "grounded-reviewer-v1"
+      }
+    }
+  },
+  {
+    "beat": 3,
+    "tool_exit_code": 0,
+    "tool_output_bytes": 152,
+    "report": {
+      "facts": [
+        {
+          "text": "the system is always safe",
+          "claim_id": "claim_inference_example"
+        }
+      ],
+      "next_attempt": {
+        "action": "withdraw"
+      }
+    },
+    "verdict": {
+      "verdict": "REVISE",
+      "grounded_in": [],
+      "missing": [
+        "non-inference evidence for: the system is always safe"
+      ],
+      "rubric": "grounded-reviewer-v1"
+    },
+    "next_attempt": {
+      "report": {
+        "facts": [],
+        "withdrawn": [
+          "the system is always safe"
+        ]
+      },
+      "verdict": {
+        "verdict": "PASS",
+        "grounded_in": [],
+        "missing": [],
+        "rubric": "grounded-reviewer-v1"
+      }
+    }
+  },
+  {
+    "beat": 4,
+    "tool_exit_code": 0,
+    "tool_output_bytes": 152,
+    "report": {
+      "facts": [
+        {
+          "text": "the repository command completed",
+          "claim_id": "claim_task_error_handling_todo"
+        }
+      ]
+    },
+    "verdict": {
+      "verdict": "PASS",
+      "grounded_in": [
+        "claim_task_error_handling_todo"
+      ],
+      "missing": [],
+      "rubric": "grounded-reviewer-v1"
+    }
+  },
+  {
+    "beat": 5,
+    "tool_exit_code": 0,
+    "tool_output_bytes": 152,
+    "report": {
+      "facts": [],
+      "withdrawn": [
+        "unverified deployment success"
+      ]
+    },
+    "verdict": {
+      "verdict": "PASS",
+      "grounded_in": [],
+      "missing": [],
+      "rubric": "grounded-reviewer-v1"
+    }
+  }
+]
