@@ -1,0 +1,60 @@
+[
+  {
+    "concept": "memory_spine",
+    "surface_forms": [
+      {
+        "document": "project-03-morning-brief",
+        "surface_form": "progress.md",
+        "id": "artifact_progress_md",
+        "type": "ARTIFACT"
+      },
+      {
+        "document": "project-03-morning-brief",
+        "surface_form": "spine",
+        "id": "process_spine",
+        "type": "PROCESS"
+      },
+      {
+        "document": "project-03-morning-brief",
+        "surface_form": "committed spine",
+        "id": "process_committed_spine",
+        "type": "PROCESS"
+      },
+      {
+        "document": "project-08-daily-loop",
+        "surface_form": "progress.md",
+        "id": "artifact_progress_md",
+        "type": "ARTIFACT"
+      },
+      {
+        "document": "project-08-daily-loop",
+        "surface_form": "spine",
+        "id": "process_spine",
+        "type": "PROCESS"
+      },
+      {
+        "document": "project-12-dreaming-loop",
+        "surface_form": "progress.md",
+        "id": "artifact_progress_md",
+        "type": "ARTIFACT"
+      }
+    ]
+  },
+  {
+    "concept": "opencode_tool",
+    "surface_forms": [
+      {
+        "document": "project-03-morning-brief",
+        "surface_form": "OpenCode",
+        "id": "tool_opencode",
+        "type": "TOOL"
+      },
+      {
+        "document": "project-03-morning-brief",
+        "surface_form": "OpenCode CLI",
+        "id": "tool_opencode_cli",
+        "type": "TOOL"
+      }
+    ]
+  }
+]
