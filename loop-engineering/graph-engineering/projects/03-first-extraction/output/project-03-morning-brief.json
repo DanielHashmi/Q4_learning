@@ -1,0 +1,113 @@
+{
+  "document": "project-03-morning-brief",
+  "entities": [
+    {
+      "id": "project_project_3_morning_todo_brief_with_a_spine",
+      "type": "PROJECT",
+      "surface_form": "Project 3: Morning TODO Brief With a Spine",
+      "description": "A loop-engineering project described by this README.",
+      "source": {
+        "document": "project-03-morning-brief",
+        "line": 1
+      }
+    },
+    {
+      "id": "artifact_progress_md",
+      "type": "ARTIFACT",
+      "surface_form": "progress.md",
+      "description": "Committed spine file carrying state between fresh runs.",
+      "source": {
+        "document": "project-03-morning-brief",
+        "line": 4
+      }
+    },
+    {
+      "id": "tool_opencode",
+      "type": "TOOL",
+      "surface_form": "OpenCode",
+      "description": "Headless coding-agent CLI used by the automation.",
+      "source": {
+        "document": "project-03-morning-brief",
+        "line": 10
+      }
+    },
+    {
+      "id": "tool_opencode_cli",
+      "type": "TOOL",
+      "surface_form": "OpenCode CLI",
+      "description": "Headless coding-agent command described by the project.",
+      "source": {
+        "document": "project-03-morning-brief",
+        "line": 28
+      }
+    },
+    {
+      "id": "process_spine",
+      "type": "PROCESS",
+      "surface_form": "spine",
+      "description": "Durable state read before a beat and written after it.",
+      "source": {
+        "document": "project-03-morning-brief",
+        "line": 1
+      }
+    },
+    {
+      "id": "process_committed_spine",
+      "type": "PROCESS",
+      "surface_form": "committed spine",
+      "description": "A spine persisted in Git for the next fresh runner.",
+      "source": {
+        "document": "project-03-morning-brief",
+        "line": 17
+      }
+    },
+    {
+      "id": "tool_github_actions",
+      "type": "TOOL",
+      "surface_form": "GitHub Actions",
+      "description": "Hosted automation runner that starts scheduled or event-driven beats.",
+      "source": {
+        "document": "project-03-morning-brief",
+        "line": 3
+      }
+    }
+  ],
+  "relations": [
+    {
+      "subject": "project_project_3_morning_todo_brief_with_a_spine",
+      "predicate": "writes",
+      "object": "artifact_progress_md",
+      "source": {
+        "document": "project-03-morning-brief",
+        "line": 4
+      }
+    },
+    {
+      "subject": "project_project_3_morning_todo_brief_with_a_spine",
+      "predicate": "uses",
+      "object": "tool_opencode",
+      "source": {
+        "document": "project-03-morning-brief",
+        "line": 10
+      }
+    },
+    {
+      "subject": "project_project_3_morning_todo_brief_with_a_spine",
+      "predicate": "uses",
+      "object": "tool_opencode_cli",
+      "source": {
+        "document": "project-03-morning-brief",
+        "line": 28
+      }
+    },
+    {
+      "subject": "project_project_3_morning_todo_brief_with_a_spine",
+      "predicate": "uses",
+      "object": "tool_github_actions",
+      "source": {
+        "document": "project-03-morning-brief",
+        "line": 3
+      }
+    }
+  ]
+}
