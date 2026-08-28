@@ -1,0 +1,264 @@
+[
+  {
+    "document": "project-03",
+    "entities": [
+      {
+        "surface_form": "progress.md",
+        "source": {
+          "document": "project-03",
+          "line": 4
+        }
+      },
+      {
+        "surface_form": "OpenCode",
+        "source": {
+          "document": "project-03",
+          "line": 10
+        }
+      },
+      {
+        "surface_form": "GitHub Actions",
+        "source": {
+          "document": "project-03",
+          "line": 3
+        }
+      },
+      {
+        "surface_form": "PR",
+        "source": {
+          "document": "project-03",
+          "line": 1
+        }
+      },
+      {
+        "surface_form": "TODO",
+        "source": {
+          "document": "project-03",
+          "line": 1
+        }
+      },
+      {
+        "surface_form": "loop",
+        "source": {
+          "document": "project-03",
+          "line": 3
+        }
+      },
+      {
+        "surface_form": "memory",
+        "source": {
+          "document": "project-03",
+          "line": 5
+        }
+      }
+    ],
+    "relations": [
+      {
+        "subject": "project-03",
+        "predicate": "writes",
+        "object": "progress.md"
+      }
+    ]
+  },
+  {
+    "document": "project-08",
+    "entities": [
+      {
+        "surface_form": "progress.md",
+        "source": {
+          "document": "project-08",
+          "line": 4
+        }
+      },
+      {
+        "surface_form": "audit-report.md",
+        "source": {
+          "document": "project-08",
+          "line": 5
+        }
+      },
+      {
+        "surface_form": "human gate",
+        "source": {
+          "document": "project-08",
+          "line": 15
+        }
+      },
+      {
+        "surface_form": "pull request",
+        "source": {
+          "document": "project-08",
+          "line": 6
+        }
+      },
+      {
+        "surface_form": "PR",
+        "source": {
+          "document": "project-08",
+          "line": 1
+        }
+      },
+      {
+        "surface_form": "verify.sh",
+        "source": {
+          "document": "project-08",
+          "line": 14
+        }
+      },
+      {
+        "surface_form": "failure",
+        "source": {
+          "document": "project-08",
+          "line": 12
+        }
+      },
+      {
+        "surface_form": "loop",
+        "source": {
+          "document": "project-08",
+          "line": 1
+        }
+      }
+    ],
+    "relations": [
+      {
+        "subject": "project-08",
+        "predicate": "produces",
+        "object": "audit-report.md"
+      },
+      {
+        "subject": "project-08",
+        "predicate": "gated_by",
+        "object": "human gate"
+      }
+    ]
+  },
+  {
+    "document": "project-12",
+    "entities": [
+      {
+        "surface_form": "progress.md",
+        "source": {
+          "document": "project-12",
+          "line": 3
+        }
+      },
+      {
+        "surface_form": "dreaming-state.md",
+        "source": {
+          "document": "project-12",
+          "line": 4
+        }
+      },
+      {
+        "surface_form": "PR",
+        "source": {
+          "document": "project-12",
+          "line": 1
+        }
+      },
+      {
+        "surface_form": "verify.sh",
+        "source": {
+          "document": "project-12",
+          "line": 11
+        }
+      },
+      {
+        "surface_form": "loop",
+        "source": {
+          "document": "project-12",
+          "line": 1
+        }
+      }
+    ],
+    "relations": [
+      {
+        "subject": "project-12",
+        "predicate": "writes",
+        "object": "dreaming-state.md"
+      }
+    ]
+  },
+  {
+    "document": "project-07",
+    "entities": [
+      {
+        "surface_form": "progress.md",
+        "source": {
+          "document": "project-07",
+          "line": 8
+        }
+      },
+      {
+        "surface_form": "PR",
+        "source": {
+          "document": "project-07",
+          "line": 1
+        }
+      },
+      {
+        "surface_form": "verify.sh",
+        "source": {
+          "document": "project-07",
+          "line": 6
+        }
+      },
+      {
+        "surface_form": "failure",
+        "source": {
+          "document": "project-07",
+          "line": 4
+        }
+      }
+    ],
+    "relations": [
+      {
+        "subject": "project-07",
+        "predicate": "writes",
+        "object": "progress.md"
+      }
+    ]
+  },
+  {
+    "document": "project-11",
+    "entities": [
+      {
+        "surface_form": "OpenCode",
+        "source": {
+          "document": "project-11",
+          "line": 8
+        }
+      },
+      {
+        "surface_form": "GitHub Actions",
+        "source": {
+          "document": "project-11",
+          "line": 8
+        }
+      },
+      {
+        "surface_form": "pull request",
+        "source": {
+          "document": "project-11",
+          "line": 4
+        }
+      },
+      {
+        "surface_form": "PR",
+        "source": {
+          "document": "project-11",
+          "line": 1
+        }
+      },
+      {
+        "surface_form": "verify.sh",
+        "source": {
+          "document": "project-11",
+          "line": 13
+        }
+      }
+    ],
+    "relations": []
+  }
+]
