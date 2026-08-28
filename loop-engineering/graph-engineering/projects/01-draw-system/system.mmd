@@ -1,0 +1,19 @@
+flowchart LR
+  L03["loop: Morning brief"] -->|writes| P["memory: progress.md"]
+  L08["loop: Daily dependency"] -->|writes| A["memory: audit-report.md"]
+  L12["loop: Dreaming improvement"] -->|reads| P
+  L12 -->|writes| D["memory: dreaming-state.md"]
+  L04["loop: Fix loop"] -->|reviewed_by| R["checker: OpenCode PR review"]
+  L07["loop: Break-it"] -->|checked_by| B["checker: independent verifier"]
+  L08 -->|checked_by| T["checker: project tests"]
+  L11A["loop: Routine A draft"] -->|feeds after approval| L11B["loop: Routine B follow-up"]
+  H{{"human gate: PR review / merge"}} -->|authorizes| L11B
+  R -->|reports_to| H
+  T -->|produces| CI[("anchor: GitHub Actions result")]
+  H -->|approves| G[("anchor: committed Git history")]
+  L08 -->|optimizes| M["metric: throughput ⚠ unwatched"]
+  C["metric: correctness ⚠ missing watcher"] -.->|should watch| M
+  X["finding: transcript only ⚠"] -.->|needs recording| P
+
+  classDef risk fill:#ffedd5,stroke:#c2410c,stroke-width:2px;
+  class M,C,X risk;
