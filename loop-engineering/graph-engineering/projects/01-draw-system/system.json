@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "description": "Governance graph for the loop-engineering projects in this repository.",
+  "nodes": [
+    {"id":"loop-03","type":"loop","name":"Morning brief","artifact":"projects/03-unattended-schedule/loop.sh"},
+    {"id":"loop-04","type":"loop","name":"Fix loop","artifact":"projects/04-fix-loop"},
+    {"id":"loop-06","type":"loop","name":"OpenCode PR review","artifact":".github/workflows/project-06-opencode-review.yml"},
+    {"id":"loop-07","type":"loop","name":"Break-it loop","artifact":"projects/07-break-it-on-purpose/run-loop.sh"},
+    {"id":"loop-08","type":"loop","name":"Daily dependency loop","artifact":".github/workflows/project-08-daily-loop.yml"},
+    {"id":"loop-09","type":"loop","name":"Routine rehearsal","artifact":"projects/09-routine-rehearsal/run-one-off.sh"},
+    {"id":"loop-10","type":"loop","name":"Secrets drill","artifact":"projects/10-secrets-drill/run-secrets-drill.sh"},
+    {"id":"loop-11a","type":"loop","name":"Routine A: draft","artifact":"projects/11-two-routine-gate/run-a.sh"},
+    {"id":"loop-11b","type":"loop","name":"Routine B: approved follow-up","artifact":"projects/11-two-routine-gate/run-b.sh"},
+    {"id":"loop-12","type":"loop","name":"Dreaming improvement loop","artifact":"projects/12-dreaming-loop/dream.sh"},
+    {"id":"checker-tests","type":"checker","name":"Project tests and verifiers","artifact":"projects/*/verify.sh"},
+    {"id":"checker-review","type":"checker","name":"OpenCode read-only PR reviewer","artifact":".github/workflows/project-06-opencode-review.yml"},
+    {"id":"checker-break","type":"checker","name":"Independent break-it checker","artifact":"projects/07-break-it-on-purpose/verify.sh"},
+    {"id":"gate-human","type":"human_gate","name":"Human PR review and merge decision","artifact":"GitHub pull request"},
+    {"id":"anchor-git","type":"anchor","name":"Committed Git history","artifact":".git"},
+    {"id":"anchor-ci","type":"anchor","name":"GitHub Actions result","artifact":".github/workflows"},
+    {"id":"memory-progress","type":"memory","name":"Loop progress spine","artifact":"projects/03-unattended-schedule/progress.md"},
+    {"id":"memory-audit","type":"memory","name":"Dependency audit report","artifact":"projects/08-daily-dependency-loop/audit-report.md"},
+    {"id":"memory-dream","type":"memory","name":"Dreaming cursor and evidence","artifact":"projects/12-dreaming-loop/dreaming-state.md"},
+    {"id":"risk-transcript","type":"finding","name":"Review observation before durable recording","artifact":"agent transcript only","risk":true,"status":"unresolved"},
+    {"id":"metric-throughput","type":"metric","name":"Daily loop throughput","artifact":"not yet recorded as a durable metric","risk":true,"status":"unwatched"},
+    {"id":"metric-counter","type":"metric","name":"Audit correctness / regression rate","artifact":"not yet assigned to a watcher","risk":true,"status":"missing"}
+  ],
+  "edges": [
+    {"from":"loop-03","to":"memory-progress","label":"writes"},
+    {"from":"loop-08","to":"memory-audit","label":"writes"},
+    {"from":"loop-12","to":"memory-dream","label":"writes"},
+    {"from":"loop-12","to":"memory-progress","label":"reads"},
+    {"from":"loop-04","to":"checker-review","label":"reviewed_by"},
+    {"from":"loop-06","to":"checker-review","label":"runs"},
+    {"from":"loop-07","to":"checker-break","label":"checked_by"},
+    {"from":"loop-08","to":"checker-tests","label":"checked_by"},
+    {"from":"loop-09","to":"checker-tests","label":"checked_by"},
+    {"from":"loop-10","to":"checker-tests","label":"checked_by"},
+    {"from":"loop-11a","to":"loop-11b","label":"feeds_after_approval"},
+    {"from":"gate-human","to":"loop-11b","label":"authorizes"},
+    {"from":"checker-review","to":"gate-human","label":"reports_to"},
+    {"from":"checker-tests","to":"anchor-ci","label":"produces"},
+    {"from":"checker-break","to":"anchor-ci","label":"produces"},
+    {"from":"gate-human","to":"anchor-git","label":"approves"},
+    {"from":"loop-08","to":"metric-throughput","label":"optimizes"},
+    {"from":"metric-counter","to":"metric-throughput","label":"should_watch"},
+    {"from":"risk-transcript","to":"memory-progress","label":"needs_recording"}
+  ],
+  "observations": [
+    {"id":"obs-1","kind":"transcript_only_finding","node":"risk-transcript","cost":"A later loop cannot query, cite, or deduplicate the observation."},
+    {"id":"obs-2","kind":"unwatched_optimizing_metric","node":"metric-throughput","watcher":"metric-counter","cost":"Throughput can improve while correctness or regressions worsen."}
+  ]
+}
