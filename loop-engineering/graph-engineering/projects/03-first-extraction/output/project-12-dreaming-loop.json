@@ -1,0 +1,55 @@
+{
+  "document": "project-12-dreaming-loop",
+  "entities": [
+    {
+      "id": "project_project_12_the_dreaming_loop",
+      "type": "PROJECT",
+      "surface_form": "Project 12: The Dreaming Loop",
+      "description": "A loop-engineering project described by this README.",
+      "source": {
+        "document": "project-12-dreaming-loop",
+        "line": 1
+      }
+    },
+    {
+      "id": "artifact_progress_md",
+      "type": "ARTIFACT",
+      "surface_form": "progress.md",
+      "description": "Committed spine file carrying state between fresh runs.",
+      "source": {
+        "document": "project-12-dreaming-loop",
+        "line": 3
+      }
+    },
+    {
+      "id": "artifact_dreaming_state_md",
+      "type": "ARTIFACT",
+      "surface_form": "dreaming-state.md",
+      "description": "Cursor and state for the improvement loop.",
+      "source": {
+        "document": "project-12-dreaming-loop",
+        "line": 4
+      }
+    }
+  ],
+  "relations": [
+    {
+      "subject": "project_project_12_the_dreaming_loop",
+      "predicate": "writes",
+      "object": "artifact_progress_md",
+      "source": {
+        "document": "project-12-dreaming-loop",
+        "line": 3
+      }
+    },
+    {
+      "subject": "project_project_12_the_dreaming_loop",
+      "predicate": "writes",
+      "object": "artifact_dreaming_state_md",
+      "source": {
+        "document": "project-12-dreaming-loop",
+        "line": 4
+      }
+    }
+  ]
+}
