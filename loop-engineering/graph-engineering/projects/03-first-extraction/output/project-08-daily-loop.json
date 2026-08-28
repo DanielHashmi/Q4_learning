@@ -1,0 +1,84 @@
+{
+  "document": "project-08-daily-loop",
+  "entities": [
+    {
+      "id": "project_project_8_your_own_daily_loop",
+      "type": "PROJECT",
+      "surface_form": "Project 8: Your Own Daily Loop",
+      "description": "A loop-engineering project described by this README.",
+      "source": {
+        "document": "project-08-daily-loop",
+        "line": 1
+      }
+    },
+    {
+      "id": "artifact_progress_md",
+      "type": "ARTIFACT",
+      "surface_form": "progress.md",
+      "description": "Committed spine file carrying state between fresh runs.",
+      "source": {
+        "document": "project-08-daily-loop",
+        "line": 4
+      }
+    },
+    {
+      "id": "artifact_audit_report_md",
+      "type": "ARTIFACT",
+      "surface_form": "audit-report.md",
+      "description": "Dependency audit output produced by the daily loop.",
+      "source": {
+        "document": "project-08-daily-loop",
+        "line": 5
+      }
+    },
+    {
+      "id": "process_spine",
+      "type": "PROCESS",
+      "surface_form": "spine",
+      "description": "Durable state read before a beat and written after it.",
+      "source": {
+        "document": "project-08-daily-loop",
+        "line": 12
+      }
+    },
+    {
+      "id": "gate_human_gate",
+      "type": "GATE",
+      "surface_form": "human gate",
+      "description": "A human decision required before risky work is merged.",
+      "source": {
+        "document": "project-08-daily-loop",
+        "line": 15
+      }
+    }
+  ],
+  "relations": [
+    {
+      "subject": "project_project_8_your_own_daily_loop",
+      "predicate": "writes",
+      "object": "artifact_progress_md",
+      "source": {
+        "document": "project-08-daily-loop",
+        "line": 4
+      }
+    },
+    {
+      "subject": "project_project_8_your_own_daily_loop",
+      "predicate": "produces",
+      "object": "artifact_audit_report_md",
+      "source": {
+        "document": "project-08-daily-loop",
+        "line": 5
+      }
+    },
+    {
+      "subject": "project_project_8_your_own_daily_loop",
+      "predicate": "gated_by",
+      "object": "gate_human_gate",
+      "source": {
+        "document": "project-08-daily-loop",
+        "line": 15
+      }
+    }
+  ]
+}
