@@ -1,0 +1,6 @@
+[
+  {"id":"claim_task_error_handling_todo","subject":"task_js","predicate":"contains_todo","object":"error_handling_for_edge_cases","confidence":0.99,"source":{"kind":"file","path":"../../../projects/03-unattended-schedule/task.js","line":4},"produced_by":"project-2-real-source-audit","created":"2026-08-18"},
+  {"id":"claim_timezone_todo","subject":"utils_ts","predicate":"contains_todo","object":"timezone_conversion_handling","confidence":0.99,"source":{"kind":"file","path":"../../../projects/03-unattended-schedule/utils.ts","line":4},"produced_by":"project-2-real-source-audit","created":"2026-08-18"},
+  {"id":"claim_daily_human_gate","subject":"daily_dependency_loop","predicate":"requires_action","object":"human_review_and_merge","confidence":0.95,"source":{"kind":"file","path":"../../../projects/08-daily-dependency-loop/README.md","line":10},"produced_by":"project-6-source-audit","created":"2026-08-25"},
+  {"id":"claim_inference_example","subject":"daily_dependency_loop","predicate":"is","object":"always_safe","confidence":0.4,"source":{"kind":"inference"},"produced_by":"untrusted-maker","created":"2026-08-25"}
+]
