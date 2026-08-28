@@ -1,0 +1,7 @@
+{
+  "triage_claims_written": 1,
+  "review_passes": 1,
+  "review_revise_count": 0,
+  "counter_metric": "review_revise_count",
+  "watcher": "changelog-review-loop"
+}

@@ -1,0 +1,12 @@
+{
+  "first_run": "triage+wrote-memory",
+  "second_run": "read-memory-only",
+  "claim_id": "claim_run_real_fix",
+  "context_hops": [
+    "claim",
+    "run",
+    "evidence"
+  ],
+  "verdict": "PASS",
+  "source_checkout_available_in_second_run": false
+}
