@@ -1,0 +1,7 @@
+{
+  "project-03": {"entities":["progress.md","OpenCode","GitHub Actions","TODO"],"relations":[["project-03","writes","progress.md"]]},
+  "project-08": {"entities":["progress.md","audit-report.md","human gate","pull request"],"relations":[["project-08","produces","audit-report.md"],["project-08","gated_by","human gate"]]},
+  "project-12": {"entities":["progress.md","dreaming-state.md","PR"],"relations":[["project-12","writes","dreaming-state.md"]]},
+  "project-07": {"entities":["progress.md","run-loop.sh","verify.sh","failure"],"relations":[["project-07","writes","progress.md"]]},
+  "project-11": {"entities":["checklist.md","run-a.sh","run-b.sh","human gate","API trigger"],"relations":[["project-11","uses","checklist.md"],["project-11","gated_by","human gate"]]}
+}
