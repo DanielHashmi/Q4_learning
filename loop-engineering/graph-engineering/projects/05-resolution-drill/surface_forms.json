@@ -1,0 +1,200 @@
+[
+  {
+    "surface_form": "Project 3: Morning TODO Brief With a Spine",
+    "type": "PROJECT",
+    "description": "A loop-engineering project described by this README.",
+    "source": {
+      "document": "project-03-morning-brief",
+      "line": 1
+    }
+  },
+  {
+    "surface_form": "progress.md",
+    "type": "ARTIFACT",
+    "description": "Committed spine file carrying state between fresh runs.",
+    "source": {
+      "document": "project-03-morning-brief",
+      "line": 4
+    }
+  },
+  {
+    "surface_form": "OpenCode",
+    "type": "TOOL",
+    "description": "Headless coding-agent CLI used by the automation.",
+    "source": {
+      "document": "project-03-morning-brief",
+      "line": 10
+    }
+  },
+  {
+    "surface_form": "OpenCode CLI",
+    "type": "TOOL",
+    "description": "Headless coding-agent command described by the project.",
+    "source": {
+      "document": "project-03-morning-brief",
+      "line": 28
+    }
+  },
+  {
+    "surface_form": "spine",
+    "type": "PROCESS",
+    "description": "Durable state read before a beat and written after it.",
+    "source": {
+      "document": "project-03-morning-brief",
+      "line": 1
+    }
+  },
+  {
+    "surface_form": "committed spine",
+    "type": "PROCESS",
+    "description": "A spine persisted in Git for the next fresh runner.",
+    "source": {
+      "document": "project-03-morning-brief",
+      "line": 17
+    }
+  },
+  {
+    "surface_form": "GitHub Actions",
+    "type": "TOOL",
+    "description": "Hosted automation runner that starts scheduled or event-driven beats.",
+    "source": {
+      "document": "project-03-morning-brief",
+      "line": 3
+    }
+  },
+  {
+    "surface_form": "Project 8: Your Own Daily Loop",
+    "type": "PROJECT",
+    "description": "A loop-engineering project described by this README.",
+    "source": {
+      "document": "project-08-daily-loop",
+      "line": 1
+    }
+  },
+  {
+    "surface_form": "progress.md",
+    "type": "ARTIFACT",
+    "description": "Committed spine file carrying state between fresh runs.",
+    "source": {
+      "document": "project-08-daily-loop",
+      "line": 4
+    }
+  },
+  {
+    "surface_form": "audit-report.md",
+    "type": "ARTIFACT",
+    "description": "Dependency audit output produced by the daily loop.",
+    "source": {
+      "document": "project-08-daily-loop",
+      "line": 5
+    }
+  },
+  {
+    "surface_form": "spine",
+    "type": "PROCESS",
+    "description": "Durable state read before a beat and written after it.",
+    "source": {
+      "document": "project-08-daily-loop",
+      "line": 12
+    }
+  },
+  {
+    "surface_form": "human gate",
+    "type": "GATE",
+    "description": "A human decision required before risky work is merged.",
+    "source": {
+      "document": "project-08-daily-loop",
+      "line": 15
+    }
+  },
+  {
+    "surface_form": "Project 12: The Dreaming Loop",
+    "type": "PROJECT",
+    "description": "A loop-engineering project described by this README.",
+    "source": {
+      "document": "project-12-dreaming-loop",
+      "line": 1
+    }
+  },
+  {
+    "surface_form": "progress.md",
+    "type": "ARTIFACT",
+    "description": "Committed spine file carrying state between fresh runs.",
+    "source": {
+      "document": "project-12-dreaming-loop",
+      "line": 3
+    }
+  },
+  {
+    "surface_form": "dreaming-state.md",
+    "type": "ARTIFACT",
+    "description": "Cursor and state for the improvement loop.",
+    "source": {
+      "document": "project-12-dreaming-loop",
+      "line": 4
+    }
+  },
+  {
+    "surface_form": "morning brief",
+    "type": "PROJECT",
+    "description": "The scheduled TODO brief loop.",
+    "source": {
+      "document": "project-03-morning-brief",
+      "line": 1
+    }
+  },
+  {
+    "surface_form": "daily loop",
+    "type": "PROCESS",
+    "description": "The unattended daily dependency audit loop.",
+    "source": {
+      "document": "project-08-daily-loop",
+      "line": 1
+    }
+  },
+  {
+    "surface_form": "dreaming loop",
+    "type": "PROCESS",
+    "description": "The weekly improvement pass over prior loop evidence.",
+    "source": {
+      "document": "project-12-dreaming-loop",
+      "line": 1
+    }
+  },
+  {
+    "surface_form": "PR",
+    "type": "ARTIFACT",
+    "description": "A GitHub pull request containing a proposed change.",
+    "source": {
+      "document": "project-08-daily-loop",
+      "line": 7
+    }
+  },
+  {
+    "surface_form": "pull request",
+    "type": "ARTIFACT",
+    "description": "A GitHub pull request containing a proposed change.",
+    "source": {
+      "document": "project-08-daily-loop",
+      "line": 7
+    }
+  },
+  {
+    "surface_form": "review",
+    "type": "PROCESS",
+    "description": "Automated read-only review of a proposed code change.",
+    "source": {
+      "document": "project-08-daily-loop",
+      "line": 7
+    }
+  },
+  {
+    "surface_form": "review",
+    "type": "GATE",
+    "description": "Human decision to inspect and merge a pull request.",
+    "source": {
+      "document": "project-08-daily-loop",
+      "line": 15
+    }
+  }
+]
