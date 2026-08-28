@@ -1,0 +1,69 @@
+[
+  {
+    "attempt": 0,
+    "prompt_version": 1,
+    "decision": "baseline",
+    "metrics": {
+      "true_positive": 14,
+      "false_positive": 11,
+      "false_negative": 6,
+      "precision": 0.56,
+      "recall": 0.7,
+      "f1": 0.6222,
+      "schema_valid_rate": 1.0
+    },
+    "prediction_file": "predictions-v1.json",
+    "mode": "offline"
+  },
+  {
+    "attempt": 1,
+    "prompt_version": 2,
+    "decision": "revert",
+    "metrics": {
+      "true_positive": 14,
+      "false_positive": 13,
+      "false_negative": 6,
+      "precision": 0.5185,
+      "recall": 0.7,
+      "f1": 0.5957,
+      "schema_valid_rate": 1.0
+    },
+    "active_version": 1,
+    "prediction_file": "predictions-v2.json",
+    "mode": "offline"
+  },
+  {
+    "attempt": 2,
+    "prompt_version": 3,
+    "decision": "revert",
+    "metrics": {
+      "true_positive": 14,
+      "false_positive": 11,
+      "false_negative": 6,
+      "precision": 0.56,
+      "recall": 0.7,
+      "f1": 0.6222,
+      "schema_valid_rate": 1.0
+    },
+    "active_version": 1,
+    "prediction_file": "predictions-v3.json",
+    "mode": "offline"
+  },
+  {
+    "attempt": 3,
+    "prompt_version": 4,
+    "decision": "revert",
+    "metrics": {
+      "true_positive": 14,
+      "false_positive": 15,
+      "false_negative": 6,
+      "precision": 0.4828,
+      "recall": 0.7,
+      "f1": 0.5714,
+      "schema_valid_rate": 1.0
+    },
+    "active_version": 1,
+    "prediction_file": "predictions-v4.json",
+    "mode": "offline"
+  }
+]
