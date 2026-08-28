@@ -28,3 +28,27 @@ action required. This file is read at the start and updated at the end.
 - correction: preflight must run before artifact upload
 - obsolete_rule: temporary debug logging
 - note: deliberately planted Project 12 repeated-failure evidence
+
+### 20260824T043521Z-32690567145
+- status: needs_human
+- audit: PASS
+- pr: https://github.com/DanielHashmi/Q4_learning/pull/16
+- human gate: review and merge the PR
+
+### 20260825T042927Z-32809147773
+- status: needs_human
+- audit: PASS
+- pr: https://github.com/DanielHashmi/Q4_learning/pull/17
+- human gate: review and merge the PR
+
+### 20260826T042942Z-32930423081
+- status: needs_human
+- audit: PASS
+- pr: https://github.com/DanielHashmi/Q4_learning/pull/18
+- human gate: review and merge the PR
+
+### 20260827T145130Z-33084558977
+- status: needs_human
+- audit: PASS
+- pr: https://github.com/DanielHashmi/Q4_learning/pull/19
+- human gate: review and merge the PR
