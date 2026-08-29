@@ -1,0 +1,68 @@
+﻿name: Graph Project 3 - OpenCode Extraction
+
+on:
+  schedule:
+    - cron: "30 9 * * 1-5"
+      timezone: "Asia/Karachi"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: graph-project-03-extraction
+  cancel-in-progress: false
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out the graph spine
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Install OpenCode
+        shell: bash
+        run: |
+          curl -fsSL https://opencode.ai/install | bash
+          echo "$HOME/.opencode/bin" >> "$GITHUB_PATH"
+      - name: Extract with OpenCode
+        working-directory: graph-engineering/projects/03-first-extraction
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+        run: python3 run_pipeline.py --mode opencode
+      - name: Independent schema gate
+        run: python3 graph-engineering/projects/03-first-extraction/validate.py
+      - name: jq schema gate
+        run: bash graph-engineering/projects/03-first-extraction/validate-jq.sh
+      - name: Upload extraction evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: graph-project-03-${{ github.run_id }}
+          path: graph-engineering/projects/03-first-extraction/output/
+          if-no-files-found: warn
+      - name: Commit only graph extraction output
+        shell: bash
+        run: |
+          allowed='graph-engineering/projects/03-first-extraction/output'
+          changed=$(git diff --name-only)
+          if [ -n "$changed" ] && printf '%s\n' "$changed" | grep -qv "^${allowed}/"; then
+            echo "Unexpected files changed:"
+            printf '%s\n' "$changed"
+            exit 1
+          fi
+          if git diff --quiet -- "$allowed"; then
+            echo "No extraction changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$allowed"
+          git commit -m "chore(graph-03): refresh OpenCode extraction"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+
