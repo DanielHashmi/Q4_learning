@@ -1,0 +1,101 @@
+﻿name: Graph Project 8 - Shared Memory Capstone
+
+on:
+  schedule:
+    - cron: "0 10 * * 1"
+      timezone: "Asia/Karachi"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: graph-project-08-capstone
+  cancel-in-progress: false
+
+jobs:
+  shared-memory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out the graph spine
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Install OpenCode
+        shell: bash
+        run: |
+          curl -fsSL https://opencode.ai/install | bash
+          echo "$HOME/.opencode/bin" >> "$GITHUB_PATH"
+      - name: Ask OpenCode for a bounded candidate report
+        working-directory: graph-engineering/projects/08-capstone
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+        run: |
+          opencode run --model opencode/big-pickle --auto "$(cat <<'PROMPT'
+          Inspect the latest committed change with git show --stat --check HEAD.
+          Write only candidate.json in this directory. It must be JSON with
+          {\"summary\": string, \"needs_review\": boolean}. Do not edit graph,
+          evidence, workflows, or any other file. The candidate is advisory;
+          later Python checks, not your prose, decide whether it is grounded.
+          PROMPT
+          )"
+          python3 -c 'import json; d=json.load(open("candidate.json")); assert isinstance(d["summary"], str) and isinstance(d["needs_review"], bool)'
+      - name: Run the triage writer
+        run: |
+          mkdir -p graph-engineering/projects/08-capstone/runtime-evidence
+          python3 graph-engineering/projects/08-capstone/triage.py \
+            --repo "$GITHUB_WORKSPACE" \
+            --graph graph-engineering/projects/08-capstone/graph \
+            --evidence graph-engineering/projects/08-capstone/runtime-evidence \
+            --run-id "run_${GITHUB_RUN_ID}"
+      - name: Run the changelog loop and grounded reviewer
+        shell: bash
+        run: |
+          claim_id=$(python3 -c 'import json; print(json.load(open("graph-engineering/projects/08-capstone/graph/claims.json"))[-1]["id"])')
+          python3 graph-engineering/projects/08-capstone/changelog.py \
+            --graph graph-engineering/projects/08-capstone/graph \
+            --claim "$claim_id" > graph-engineering/projects/08-capstone/changelog.json
+          python3 graph-engineering/projects/08-capstone/review_changelog.py \
+            --graph graph-engineering/projects/08-capstone/graph \
+            --input graph-engineering/projects/08-capstone/changelog.json > graph-engineering/projects/08-capstone/verdict.json
+      - name: Grounded changelog and counter-metric gate
+        run: |
+          python3 graph-engineering/projects/08-capstone/validate.py
+          python3 graph-engineering/projects/08-capstone/graph_guard.py \
+            --graph graph-engineering/projects/08-capstone/graph
+      - name: Upload capstone evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: graph-project-08-${{ github.run_id }}
+          path: |
+            graph-engineering/projects/08-capstone/candidate.json
+            graph-engineering/projects/08-capstone/runtime-evidence/
+            graph-engineering/projects/08-capstone/graph/
+          if-no-files-found: warn
+      - name: Commit graph state only
+        shell: bash
+        run: |
+          allowed='graph-engineering/projects/08-capstone/graph'
+          evidence='graph-engineering/projects/08-capstone/runtime-evidence'
+          changed=$(git diff --name-only)
+          if [ -n "$changed" ] && printf '%s\n' "$changed" | grep -qv -E "^(${allowed}|${evidence})/"; then
+            echo "Unexpected files changed:"
+            printf '%s\n' "$changed"
+            exit 1
+          fi
+          if git diff --quiet -- "$allowed" "$evidence"; then
+            echo "No graph changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$allowed" "$evidence"
+          git commit -m "chore(graph-08): record shared-memory beat"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+
+
