@@ -1,0 +1,10 @@
+﻿{
+  "name": "lint-hook-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "node scripts/lint.js",
+    "test": "node scripts/test.js"
+  }
+}

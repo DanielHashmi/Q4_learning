@@ -1,0 +1,4 @@
+#!/bin/sh
+npm run lint --silent && npm test --silent || {
+  echo "pre-commit: lint or tests failed - commit blocked"; exit 1;
+}
