@@ -1,0 +1,17 @@
+=== TEST A: well-formed PASS ===
+ACCEPTED: verdict=PASS
+exit code: 0
+
+=== TEST B: well-formed FAIL ===
+ACCEPTED: verdict=FAIL
+exit code: 0
+
+=== TEST C: well-formed but invalid verdict (MAYBE) ===
+REJECTED: reviewer broke protocol — escalating to a human
+- reviewer output unparseable: needs a human
+exit code: 2
+
+=== TEST D: non-JSON free text ===
+REJECTED: reviewer broke protocol — escalating to a human
+- reviewer output unparseable: needs a human
+exit code: 2
