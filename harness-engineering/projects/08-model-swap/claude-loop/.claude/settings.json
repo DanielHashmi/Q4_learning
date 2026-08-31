@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm test*)",
+      "Bash(npm run lint*)",
+      "Bash(node test.js*)",
+      "Bash(node lint.js*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git status*)",
+      "Bash(git add*)",
+      "Bash(git commit -m *)",
+      "Bash(git push origin claude/*)"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(rm -rf*)",
+      "Bash(curl*)",
+      "Bash(wget*)"
+    ]
+  }
+}
