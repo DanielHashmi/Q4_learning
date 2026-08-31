@@ -1,0 +1,6 @@
+[
+  { "name": "get_customer", "description": "Fetch a customer's full record, given either a customer ID or an email address." },
+  { "name": "update_customer", "description": "Apply a partial update to a customer's record (any subset of fields)." },
+  { "name": "close_ticket", "description": "Mark a support ticket as resolved and closed." },
+  { "name": "escalate_ticket", "description": "Hand a support ticket off to a human agent, with a reason." }
+]
