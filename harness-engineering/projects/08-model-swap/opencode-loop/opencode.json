@@ -1,0 +1,22 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "google/gemini-2.5-flash",
+  "permission": {
+    "edit": "allow",
+    "bash": {
+      "*": "deny",
+      "npm test*": "allow",
+      "npm run lint*": "allow",
+      "node test.js*": "allow",
+      "node lint.js*": "allow",
+      "git diff*": "allow",
+      "git log*": "allow",
+      "git status*": "allow",
+      "git add*": "allow",
+      "git commit*": "allow",
+      "git push origin gemini/*": "allow",
+      "git push --force*": "deny",
+      "rm -rf*": "deny"
+    }
+  }
+}
