@@ -1,0 +1,14 @@
+[
+  { "name": "get_customer", "description": "Fetch a customer record by ID." },
+  { "name": "fetch_customer_info", "description": "Retrieve customer information given an identifier." },
+  { "name": "lookup_customer_record", "description": "Look up a customer's record in the database." },
+  { "name": "get_customer_details", "description": "Get detailed info about a customer." },
+  { "name": "search_customers", "description": "Search for customers by name or email." },
+  { "name": "find_customer_by_email", "description": "Find a customer using their email address." },
+  { "name": "update_customer", "description": "Update a customer's record." },
+  { "name": "edit_customer_info", "description": "Edit customer information fields." },
+  { "name": "patch_customer_record", "description": "Apply a partial update to a customer record." },
+  { "name": "close_ticket", "description": "Close a support ticket." },
+  { "name": "resolve_ticket", "description": "Mark a support ticket as resolved." },
+  { "name": "escalate_ticket", "description": "Escalate a support ticket to a human agent." }
+]
