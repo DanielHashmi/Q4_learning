@@ -1,0 +1,8 @@
+infrastructure_status=GREEN
+routine=A
+run_id=32462264446
+branch=claude/project-11-draft-32462264446
+action=draft-only
+draft_status=CREATED
+follow_up_status=NOT_FIRED
+human_gate=REQUIRED
